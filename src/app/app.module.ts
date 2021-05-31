@@ -9,17 +9,27 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {StudentMainComponent} from './student/student-main/student-main.component';
 import {Routes, RouterModule} from '@angular/router';
 import {AutorisationComponent} from "./autorisation/auth/autorisation.component";
+import {LibrarianMainComponent} from './librarian/librarian-main/librarian-main.component';
+import {StudGuard} from "./student/stud.guard";
+import {LibrGuard} from "./librarian/libr.guard";
+import { LibrarianHeadComponent } from './librarian/librarian-head/librarian-head.component';
+
 
 
 const routes: Routes =[
   { path: '', component: AutorisationComponent},
-  { path: 'student', component: StudentMainComponent},
+  { path: 'home', redirectTo: '', component: AutorisationComponent},
+  { path: 'student', component: StudentMainComponent, canActivate: [StudGuard]},
+  { path: 'librarian', component: LibrarianMainComponent, canActivate: [LibrGuard]},
+  { path: '**', component: AutorisationComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentMainComponent
+    StudentMainComponent,
+    LibrarianMainComponent,
+    LibrarianHeadComponent
   ],
   imports: [
     BrowserModule,

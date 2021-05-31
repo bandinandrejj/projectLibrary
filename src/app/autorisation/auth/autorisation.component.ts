@@ -16,7 +16,7 @@ export class AutorisationComponent implements OnInit {
 
   }
 
-
+  authUser: any;
   userPassInvalid: boolean = false;
   userAuthInvalid: boolean = false;
 
@@ -24,7 +24,7 @@ export class AutorisationComponent implements OnInit {
   }
 
   authForm: FormGroup = new FormGroup({
-    "userLogin": new FormControl("", [Validators.required, Validators.pattern('^(stud[0-9]{4})$|^(libr[0-9]{3})$')]),
+    "userLogin": new FormControl("", [Validators.required, Validators.pattern('^(stud[0-9]{4})$|^(libr[0-9]{4})$')]),
     "userPass": new FormControl("", [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=(.*[a-zA-Z]){4}).{6,30}$')]),
   });
 
@@ -45,7 +45,7 @@ export class AutorisationComponent implements OnInit {
               this.authForm.controls['userPass'].reset();
             } else {
               localStorage.setItem('authUser', JSON.stringify(item));
-              this.router.navigate(['/student']);
+              item[0].userFlag === 'student' ? this.router.navigate(['/student']) : this.router.navigate(['/librarian'])
             }
           }
         }
@@ -54,7 +54,7 @@ export class AutorisationComponent implements OnInit {
 
 
   ADDUSER() {
-    this._service.addUser();
+    // this._service.addUser();
   }
 
 }

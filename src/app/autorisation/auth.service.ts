@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFireDatabase, SnapshotAction} from "@angular/fire/database";
 import {map} from "rxjs/operators";
 import {authStudent} from "./student.interface";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 
 
 @Injectable({
@@ -54,6 +54,7 @@ export class AuthService {
         userFlag: 'librarian',
       });
     }
+
 
 
 
