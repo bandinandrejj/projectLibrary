@@ -28,8 +28,11 @@ h1 {
   margin: 0;
 }
 
-.formButton {
+.formButtonInval {
   opacity: 0.5;
+}
+.formButtonVal {
+  cursor: pointer;
 }
 
 p {
@@ -119,6 +122,8 @@ button {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
 }
+
+
 
 button:active {
   transform: scale(.95);

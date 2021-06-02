@@ -1,0 +1,41 @@
+
+<div class="wrapper">
+
+<div class="join">
+    <div class="joinsign">Добавить читателя</div>
+  </div>
+
+  <div class="search">
+    <form action="" class="sline">
+      <input [(ngModel)]="str" (input)="findUser(str)" name="findUser" type="text" placeholder="Поиск">
+    </form>
+  </div>
+
+</div>
+
+
+<div>
+  <table border="1">
+    <tr>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Логин</th>
+      <th>Пароль</th>
+      <th>Редактирвоать</th>
+      <th>Удалить</th>
+    </tr>
+    <tr *ngFor="let student of students">
+      <td>{{student.userName}}</td>
+      <td>{{student.userLastName}}</td>
+      <td>{{student.userLogin}}</td>
+      <td>{{student.userPass}}</td>
+      <td>
+        <button (click)="editUser(student.key)">Редактирвоать</button>
+      </td>
+      <td>
+        <button (click)="deleteUser(student.key)">Удалить</button>
+      </td>
+    </tr>
+  </table>
+</div>
+

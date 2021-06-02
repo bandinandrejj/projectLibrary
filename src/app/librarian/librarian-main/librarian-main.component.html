@@ -1,2 +1,126 @@
-<app-librarian-head></app-librarian-head>
-<p>librarian-main works!</p>
+<div class="wrapper">
+  <div class="content">
+    <div class="left-block">
+      <div class="logo">
+        <div class="piccont">
+          <div class="pic">
+            <div class="picsign">
+              {{userInfo.userName[0]}}
+            </div>
+          </div>
+        </div>
+        <div class="logosign">
+          {{userInfo.userName}} {{userInfo.userLastName}}
+        </div>
+      </div>
+
+      <div class="join">
+        <div class="joinsign">Застолбить книгу</div>
+      </div>
+
+      <div class="navleft">
+
+        <ul>
+          <li>
+            <div class="navleftElement" headingTouch>
+<!--              [ngClass]="{navleftElementsel: hovering === true, navleftElement: hovering === false}"-->
+<!--              (mouseenter)="hovering = true"-->
+<!--              (mouseleave)="hovering = false">-->
+              <img src="assets/icon/dash.svg">
+              Что-то важное
+            </div>
+          </li>
+          <li>
+            <div class="navleftElement" headingTouch>
+              <img src="assets/icon/allcourses.svg">
+              Книги в обороте
+            </div>
+          </li>
+          <li>
+            <div class="navleftElement" headingTouch>
+              <img src="assets/icon/res.svg">
+              Архив книг
+            </div>
+          </li>
+          <li>
+            <div
+              class="navleftElementsel" headingTouch>
+              <img src="assets/icon/friends_actual.svg">
+<!--              <img src="assets/icon/friends.svg">-->
+              Читатели
+              <div class="selection"></div>
+            </div>
+          </li>
+<!--          <li>-->
+<!--            <div class="navleftElement">-->
+<!--              <img src="assets/icon/chats.svg">-->
+<!--              Chats-->
+<!--            </div>-->
+<!--          </li>-->
+          <li>
+            <div headingTouch (click)="logout()" class="navleftElement">
+              <img src="assets/icon/settings.svg">
+              Выход
+            </div>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+    <div class="main">
+
+      <div class="allcourses">
+        <p>Читатели</p>
+
+<!--        <div class="mainnav">-->
+<!--          <div class="navmenu">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <div class="sel">-->
+<!--                  <p>Ongoing</p>-->
+
+
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <div class="unsel">-->
+<!--                  <p>Favorite</p>-->
+
+
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <div class="unsel">-->
+<!--                  <p>Complete</p>-->
+
+<!--                </div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div class="sels">-->
+<!--            <ul class="selul">-->
+<!--              <li>-->
+<!--                <div class="selm"></div>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <div class="us"></div>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <div class="us"></div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+      <div class="frameset">
+        <app-librarian-stud></app-librarian-stud>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

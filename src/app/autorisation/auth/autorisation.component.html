@@ -8,7 +8,7 @@
         <input formControlName="userPass" type="password" placeholder="Пароль"/>
         <p *ngIf="userPassInvalid">ПАРОЛЬ НЕПРАВИЛЬНЫЙ !!</p>
         <p *ngIf="userAuthInvalid">ТАКОГО ПОЛЬЗОВАТЕЛЯ НЕ СУШЕСТВУЕТ!</p>
-        <button [disabled]="authForm.invalid" [ngClass]="{formButton: authForm.invalid}">Войти</button>
+        <button [disabled]="authForm.invalid" [ngClass]="{formButtonInval: authForm.invalid, formButtonVal: authForm.valid}">Войти</button>
       </form>
 
 

@@ -34,7 +34,7 @@ export class AuthService {
   //   )
   // }
 
-  getAuth(login: string): any {
+  getAuth(login: string) {
     return this.db.list('/user', ref => ref.orderByChild('userLogin')
       .equalTo(login))
       .snapshotChanges()
@@ -45,17 +45,16 @@ export class AuthService {
       )
   }
 
+
   addUser() {
-      this.db.list('/user').push({
-        userLogin: 'libr0001',
-        userPass: '46Apimav',
-        userName: 'Глафира',
-        userLastName: 'Степановна',
-        userFlag: 'librarian',
-      });
-    }
-
-
+    this.db.list('/user').push({
+      userLogin: 'stud0001',
+      userPass: '12Tests',
+      userName: 'Вася',
+      userLastName: 'Обычный',
+      userFlag: 'student',
+    });
+  }
 
 
 }
