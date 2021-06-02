@@ -53,8 +53,6 @@ export class AutorisationComponent implements OnInit {
   }
 
 
-  ADDUSER() {
-    this._service.addUser();
-  }
+
 
 }

@@ -24,6 +24,16 @@ export class LibService {
     return this.db.list('/user').remove(key);
   }
 
+  addUser() {
+    this.db.list('/user').push({
+      userLogin: 'stud0001',
+      userPass: '12Tests',
+      userName: 'Вася',
+      userLastName: 'Обычный',
+      userFlag: 'student',
+    });
+  }
+
 }
 
 

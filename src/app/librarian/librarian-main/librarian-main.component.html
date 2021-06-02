@@ -30,25 +30,29 @@
               Что-то важное
             </div>
           </li>
+
           <li>
             <div class="navleftElement" headingTouch>
               <img src="assets/icon/allcourses.svg">
               Книги в обороте
             </div>
           </li>
+
           <li>
-            <div class="navleftElement" headingTouch>
-              <img src="assets/icon/res.svg">
+            <div class="navleftElement" headingTouch (click)="btnNavigate('books')">
+              <img src="assets/icon/{{dynamicImg('res', 'books')}}.svg">
               Архив книг
+              <div *ngIf="dynamicSelec('books')" class="selection"></div>
             </div>
           </li>
+
+
           <li>
-            <div
-              class="navleftElementsel" headingTouch>
-              <img src="assets/icon/friends_actual.svg">
+            <div class="navleftElement" headingTouch (click)="btnNavigate('students')">
+              <img src="assets/icon/{{dynamicImg('friends', 'students')}}.svg">
 <!--              <img src="assets/icon/friends.svg">-->
               Читатели
-              <div class="selection"></div>
+              <div *ngIf="dynamicSelec('students')" class="selection"></div>
             </div>
           </li>
 <!--          <li>-->
@@ -59,7 +63,7 @@
 <!--          </li>-->
           <li>
             <div headingTouch (click)="logout()" class="navleftElement">
-              <img src="assets/icon/settings.svg">
+              <img src="assets/icon/{{dynamicImg('settings', 'settings')}}.svg">
               Выход
             </div>
           </li>
@@ -115,7 +119,7 @@
       </div>
 
       <div class="frameset">
-        <app-librarian-stud></app-librarian-stud>
+        <router-outlet></router-outlet>
       </div>
 
     </div>

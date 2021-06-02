@@ -2,6 +2,7 @@ import {Component, OnInit, NgModule} from '@angular/core';
 import {AuthService} from "../../autorisation/auth.service";
 import {LibService} from "../lib.service";
 import {authStudent} from "../../autorisation/student.interface";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-librarian-stud',
@@ -10,12 +11,13 @@ import {authStudent} from "../../autorisation/student.interface";
 })
 export class LibrarianStudComponent implements OnInit {
 
-  constructor(private _service: LibService) {
+  constructor(private _route: Router, private _service: LibService) {
   }
 
   str: string = '';
   viewStudents: authStudent[] = [];
   students: authStudent[] = [];
+  thisUrl: string = this._route.url;
 
   ngOnInit(): void {
     this._service.getAllStuds().subscribe(item => {
@@ -46,5 +48,9 @@ export class LibrarianStudComponent implements OnInit {
 
   deleteUser(key: string | null) {
     this._service.deleteUser(key as string)
+  }
+
+  addUser () {
+    this._service.addUser();
   }
 }

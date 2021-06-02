@@ -12,10 +12,12 @@ export class LibrGuard implements CanActivate {
   constructor(private _route: Router,) {
   }
 
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
 
+console.log('fdsafds');
 
     if (localStorage.getItem('authUser') === null) {
       this._route.navigate(['/'])

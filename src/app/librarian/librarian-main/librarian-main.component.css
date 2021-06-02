@@ -140,8 +140,8 @@
 }
 
 .navleftElement > img {
-  width: 20px;
-  height: 20px;
+  /*width: 20px;*/
+  /*height: 20px;*/
   padding-right: 25px;
 }
 
@@ -785,6 +785,7 @@
 .uspic {
   margin-right: 15px;
 }
+
 
 /*.frameset {*/
 /*  background-color: cadetblue;*/
