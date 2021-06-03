@@ -32,9 +32,12 @@ export class AutorisationComponent implements OnInit {
   submitAuth() {
     // this._service.getAuth(this.authForm.value.userLogin, this.authForm.value.userPass);
 
+
+
+
     this._service.getAuth(this.authForm.value.userLogin)
       .subscribe((item: authStudent[]) => {
-          if (item.length === 0) {
+          if (item.length === 0 || item.length > 1) {
             this.userAuthInvalid = true;
             this.userPassInvalid = false;
             this.authForm.reset();

@@ -42,7 +42,7 @@
             <div class="navleftElement" headingTouch (click)="btnNavigate('books')">
               <img src="assets/icon/{{dynamicImg('res', 'books')}}.svg">
               Архив книг
-              <div *ngIf="dynamicSelec('books')" class="selection"></div>
+              <div *ngIf="dynamicSelec('books', 'Архив книг')" class="selection"></div>
             </div>
           </li>
 
@@ -52,7 +52,7 @@
               <img src="assets/icon/{{dynamicImg('friends', 'students')}}.svg">
 <!--              <img src="assets/icon/friends.svg">-->
               Читатели
-              <div *ngIf="dynamicSelec('students')" class="selection"></div>
+              <div *ngIf="dynamicSelec('students', 'Читатели')" class="selection"></div>
             </div>
           </li>
 <!--          <li>-->
@@ -75,7 +75,7 @@
     <div class="main">
 
       <div class="allcourses">
-        <p>Читатели</p>
+        <p>{{title}}</p>
 
 <!--        <div class="mainnav">-->
 <!--          <div class="navmenu">-->

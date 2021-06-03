@@ -21,17 +21,16 @@ export class LibService {
   }
 
   deleteUser(key: string) {
-    return this.db.list('/user').remove(key);
+    this.db.list('/user').remove(key);
   }
 
-  addUser() {
-    this.db.list('/user').push({
-      userLogin: 'stud0001',
-      userPass: '12Tests',
-      userName: 'Вася',
-      userLastName: 'Обычный',
-      userFlag: 'student',
-    });
+  updateUser(key: string, data: object) {
+     this.db.list('/user').update(key, data);
+  }
+
+
+  addUser(data: object) {
+    this.db.list('/user').push(data);
   }
 
 }

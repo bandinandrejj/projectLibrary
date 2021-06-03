@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {authStudent} from "../../autorisation/student.interface";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -13,9 +13,10 @@ export class LibrarianMainComponent implements OnInit {
 
   hovering: boolean = false;
   item: string = '';
+  title: string = '';
 
-
-  constructor(private route: Router, private router: ActivatedRoute) { }
+  constructor(private route: Router, private router: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
   }
@@ -40,7 +41,7 @@ export class LibrarianMainComponent implements OnInit {
   //   console.log(this.route.url)
   // }
 
-  dynamicImg (img: string, route: string): string {
+  dynamicImg(img: string, route: string): string {
     if (this.route.url === `/librarian/${route}`) {
       return `${img}_actual`;
     }
@@ -52,8 +53,13 @@ export class LibrarianMainComponent implements OnInit {
   }
 
 
-  dynamicSelec(students: string) {
-    return this.route.url === `/librarian/${students}`;
+  dynamicSelec(route: string, title: string): boolean {
+    if (this.route.url === `/librarian/${route}`) {
+      this.title = title;
+      return true
+    } else {
+      return false
+    }
   }
 
 

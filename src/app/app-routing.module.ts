@@ -22,7 +22,7 @@ const routes: Routes = [
       {path: 'books', component: LibrarianBookComponent},
     ]
   },
-  {path: '**', redirectTo: '/'}
+  // {path: '**', redirectTo: '/'}
 ];
 
 

@@ -1,8 +1,8 @@
 <div class="wrapper">
 
-  <div class="join">
-    <div class="joinsign" (click)="addUser()">Добавить читателя</div>
-  </div>
+  <a class="join" href="{{thisUrl}}#popupAdd" (click)="addUser()">
+    <a class="joinsign">Добавить читателя</a>
+  </a>
 
   <div class="search">
     <form action="" class="sline">
@@ -23,40 +23,84 @@
       <th>Редактирвоать</th>
       <th>Удалить</th>
     </tr>
-    <tr *ngFor="let student of students">
+    <tr *ngFor="let student of students" TableTouch>
       <td>{{student.userName}}</td>
       <td>{{student.userLastName}}</td>
       <td>{{student.userLogin}}</td>
       <td>{{student.userPass}}</td>
-      <td>
-        <a class="buttonEdit" href="{{thisUrl}}#popup1" (click)="editUser(student.key)">Редактирвоать</a>
+      <td class="btn" (click)="clickHref('#popupEdit'); univUser(student)">
+        <a class="buttonEdit">Редактирвоать</a>
       </td>
-      <td>
-        <a class="buttonDel" href="{{thisUrl}}#popup2" (click)="deleteUser(student.key)">Удалить</a>
+      <td class="btn" (click)="clickHref('#popupDelete'); univUser(student)">
+        <a class="buttonDel">Удалить</a>
       </td>
     </tr>
   </table>
 </div>
 
 
-
-
-<div id="popup1" class="overlay">
+<div id="popupEdit" class="overlay">
   <div class="popup">
-    <h2>Here i am</h2>
     <a class="close" href="{{thisUrl}}#">&times;</a>
     <div class="content">
-      Thank to pop me out of that button, but now i'm done so you can close this window.
+      <form class="decor" novalidate [formGroup]="userForm" (ngSubmit)="submitUserEdit(); clickHref()">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+
+          <h3>Изменить читателя</h3>
+
+          <input value="{{userLoginTitle}}" disabled  />
+          <input formControlName="userPass" placeholder="Пароль"/>
+          <input formControlName="userName" placeholder="Имя"/>
+          <input formControlName="userLastName" placeholder="Фамилия"/>
+
+
+          <button
+            [disabled]="userForm.invalid"
+            [ngClass]="{formButtonInval: userForm.invalid, formButtonVal: userForm.valid}">Выполнить
+          </button>
+
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<div id="popup2" class="overlay">
+
+<div id="popupAdd" class="overlay">
   <div class="popup">
-    <h2>Here i am</h2>
     <a class="close" href="{{thisUrl}}#">&times;</a>
     <div class="content">
-      Thank to pop me out of that button, but now i'm done so you can close this window.
+      <form class="decor" novalidate [formGroup]="userForm">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Добавить читателя</h3>
+          <input formControlName="userLogin" placeholder="Логин"/>
+          <input formControlName="userPass" placeholder="Пароль"/>
+          <input formControlName="userName" placeholder="Имя"/>
+          <input formControlName="userLastName" placeholder="Фамилия"/>
+<!--          <input formControlName="userFlag" placeholder="Флаг"/>-->
+          <a class="join" href="{{thisUrl}}#" (click)="submitUserAdd()">
+            <a class="joinsign">Выполнить</a>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="popupDelete" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content contentPopUp">
+      <p class="centerP">Вы точно хотите удалить пользователя <br> {{fullNameUser}} ?</p>
+      <div class="flexBtn">
+        <a class="buttonEdit btnPopUpOk" type="button" href="{{thisUrl}}#" (click)="deleteUser()">Да</a>
+        <a class="buttonEdit btnPopUpCa" type="button" href="{{thisUrl}}#">Нет</a>
+      </div>
     </div>
   </div>
 </div>
