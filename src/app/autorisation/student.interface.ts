@@ -11,6 +11,8 @@ export interface authStudent { // Не копия ли это нижнего и�
   userPass: string,
   userName: string,
   userLastName: string,
+  userPhone: string;
+  userAdress: string,
   userFlag: string,
 }
 

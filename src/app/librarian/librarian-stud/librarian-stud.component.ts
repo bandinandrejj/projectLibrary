@@ -37,11 +37,11 @@ export class LibrarianStudComponent implements OnInit {
   userForm: FormGroup = new FormGroup({
     "userLogin": new FormControl("", [Validators.pattern('^(stud[0-9]{4})$'), this.checkUserValidator.bind(this), this.checkEmptinessInputValid]),
     "userPass": new FormControl("", [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=(.*[a-zA-Z]){4}).{6,30}$')]),
-    "userName": new FormControl("", [Validators.required]),
-    "userLastName": new FormControl("", [Validators.required]),
-    "userPhone": new FormControl(""),
+    "userName": new FormControl("", [Validators.required, Validators.maxLength(20)]),
+    "userLastName": new FormControl("", [Validators.required, Validators.maxLength(20)]),
+    "userPhone": new FormControl("", [Validators.required]),
     "userAdress": new FormControl(""),
-    "userFlag": new FormControl("student"),
+    "userFlag": new FormControl("student",[Validators.required]),
   });
 
 
@@ -83,6 +83,7 @@ export class LibrarianStudComponent implements OnInit {
   addUser() {
     this.userForm.reset({
       userLogin: 'stud',
+      userPhone: '+7',
       userFlag: 'student'
     });
   }
@@ -96,7 +97,7 @@ export class LibrarianStudComponent implements OnInit {
     this._service.addUser(this.userForm.value)
   }
 
-  univUser(data: authStudent) {
+  univUser(data: authStudent, href?: string) {
 
     this.keyUser = data.key as string;
     this.fullNameUser = `${data.userName} ${data.userLastName}`
@@ -107,8 +108,13 @@ export class LibrarianStudComponent implements OnInit {
       userName: data.userName,
       userLastName: data.userLastName,
       userPass: data.userPass,
+      userPhone: data.userPhone,
+      userAdress: data.userAdress,
       userFlag: data.userFlag,
     })
+
+    this.clickHref(href)
+
   }
 
   deleteUser() {
@@ -120,6 +126,7 @@ export class LibrarianStudComponent implements OnInit {
       userLogin: this.userLoginTitle,
       userName: this.userForm.value['userName'].trim(),
       userLastName: this.userForm.value['userLastName'].trim(),
+      userAdress: this.userForm.value['userAdress'] === undefined ? '' : this.userForm.value['userAdress'],
     })
     this._service.updateUser(this.keyUser, this.userForm.value);
   }

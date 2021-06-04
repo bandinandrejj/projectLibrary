@@ -180,7 +180,7 @@ tr > td:first-child, tr > th:first-child {
 }
 
 .popup {
-  margin: 70px auto;
+  margin: 4% auto;
   padding: 20px;
   background: #fff;
   border-radius: 5px;
@@ -422,4 +422,9 @@ input.ng-valid {
   border-radius: 4px;
 }
 
-
+input[readonly], textarea[readonly] {
+  color: rgb(84, 84, 84);
+  cursor: default;
+  background-color: rgba(239, 239, 239, 0.3);
+  border-color: rgba(118, 118, 118, 0.3);
+}

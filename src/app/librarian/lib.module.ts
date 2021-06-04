@@ -10,6 +10,8 @@ import { LibrTableTouchDirective } from './libr-table-touch.directive';
 import { LibrarianBorrowbookComponent } from './librarian-borrowbook/librarian-borrowbook.component';
 import { LibrarianDashboardComponent } from './librarian-dashboard/librarian-dashboard.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
         RouterModule,
         ReactiveFormsModule,
         ScrollingModule,
+      NgxMaskModule.forRoot(),
     ]
 })
 export class LibModule { }

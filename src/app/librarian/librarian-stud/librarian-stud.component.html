@@ -27,14 +27,22 @@
 
 
       <tr *cdkVirtualFor="let student of students" TableTouch>
-        <td>{{student.userName}}</td>
-        <td>{{student.userLastName}}</td>
-        <td>{{student.userLogin}}</td>
-        <td>{{student.userPass}}</td>
-        <td class="btn" (click)="clickHref('#popupEdit'); univUser(student)">
+        <td (click)="univUser(student, '#popupOpen')">
+          {{student.userName}}
+        </td>
+        <td (click)="univUser(student, '#popupOpen')">
+          {{student.userLastName}}
+        </td>
+        <td (click)="univUser(student, '#popupOpen')">
+          {{student.userLogin}}
+        </td>
+        <td (click)="univUser(student, '#popupOpen')">
+          {{student.userPass}}
+        </td>
+        <td class="btn" (click)="univUser(student, '#popupEdit')">
           <a class="buttonEdit">Редактирвоать</a>
         </td>
-        <td class="btn" (click)="clickHref('#popupDelete'); univUser(student)">
+        <td class="btn" (click)="univUser(student,'#popupDelete')">
           <a class="buttonDel">Удалить</a>
         </td>
       </tr>
@@ -63,7 +71,7 @@
           <input formControlName="userPass" placeholder="Пароль"/>
           <input formControlName="userName" placeholder="Имя"/>
           <input formControlName="userLastName" placeholder="Фамилия"/>
-          <input formControlName="userPhone" type="text" placeholder="Номер телефона">
+          <input formControlName="userPhone" placeholder="Номер телефона" type="text" mask="+0(000)000-00-00">
           <textarea formControlName="userAdress" placeholder="Адрес"></textarea>
 
           <!--          <input formControlName="userFlag" placeholder="Флаг"/>-->
@@ -92,12 +100,37 @@
           <input formControlName="userPass" placeholder="Пароль"/>
           <input formControlName="userName" placeholder="Имя"/>
           <input formControlName="userLastName" placeholder="Фамилия"/>
+          <input formControlName="userPhone" placeholder="Номер телефона" type="text" mask="+0(000)000-00-00">
+          <textarea formControlName="userAdress" placeholder="Адрес"></textarea>
 
 
           <button
             [disabled]="userForm.invalid"
             [ngClass]="{formButtonInval: userForm.invalid, formButtonVal: userForm.valid}">Выполнить
           </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="popupOpen" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="userForm">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+
+          <h3>Изменить читателя</h3>
+          <input value="{{userLoginTitle}}" readonly/>
+          <input readonly formControlName="userPass"/>
+          <input readonly formControlName="userName"/>
+          <input readonly formControlName="userLastName"/>
+          <input readonly formControlName="userPhone" mask="+0(000)000-00-00">
+          <textarea readonly formControlName="userAdress"></textarea>
 
         </div>
       </form>
