@@ -196,19 +196,19 @@ button.ghost {
   transition: transform .6s ease-in-out;
 }
 
-/*.overlay-right {*/
-/*  right: 0;*/
-/*  transform: translateY(0);*/
-/*}*/
+.overlay-right {
+  right: 0;
+  transform: translateY(0);
+}
 
-/*.overlay-left {*/
-/*  transform: translateY(-20%);*/
-/*}*/
+.overlay-left {
+  transform: translateY(-20%);
+}
 
 
-/*.container.right-panel-active .sign-in-container {*/
-/*  transform: translateY(100%);*/
-/*}*/
+.container.right-panel-active .sign-in-container {
+  transform: translateY(100%);
+}
 
 
 /*.container.right-panel-active .overlay-container {*/

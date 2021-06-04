@@ -26,9 +26,7 @@ export class LibrarianStudComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.thisUrl.split('#').length > 1) {
-      window.location.href = this.thisUrl.split('#')[0]
-    }
+    this._service.debugHash(this.thisUrl);
 
     this._service.getAllStuds().subscribe(item => {
       this.viewStudents = item;
@@ -83,6 +81,7 @@ export class LibrarianStudComponent implements OnInit {
 
   addUser() {
     this.userForm.reset({
+      userLogin: 'stud',
       userFlag: 'student'
     });
   }

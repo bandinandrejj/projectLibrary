@@ -7,6 +7,8 @@ import {LibrarianBookComponent} from "./librarian-book/librarian-book.component"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import { LibrTableTouchDirective } from './libr-table-touch.directive';
+import { LibrarianBorrowbookComponent } from './librarian-borrowbook/librarian-borrowbook.component';
+import { LibrarianDashboardComponent } from './librarian-dashboard/librarian-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { LibrTableTouchDirective } from './libr-table-touch.directive';
     LibrarianStudComponent,
     LibrarianBookComponent,
     LibrTableTouchDirective,
+    LibrarianBorrowbookComponent,
+    LibrarianDashboardComponent,
   ],
   exports: [
     LibrarianMainComponent,

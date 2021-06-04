@@ -1,1 +1,115 @@
-<p>librarian-book works!</p>
+<!--Добавление и поиск-->
+<div class="wrapper">
+  <a class="join" href="{{thisUrl}}#popupAdd" (click)="addBook()">
+
+    <a class="joinsign">Добавить книгу</a>
+  </a>
+
+  <div class="search">
+    <form action="" class="sline">
+      <input [(ngModel)]="str" (input)="findBook(str)" name="findBook" type="text" placeholder="Поиск">
+
+    </form>
+  </div>
+</div>
+
+<!--Таблица-->
+<div class="TableUser">
+  <table>
+    <tr>
+      <th>Название</th>
+      <th>Автор</th>
+      <th>Жанр</th>
+      <th>Количество</th>
+      <th>Комментарии</th>
+      <th>Редактирвоать</th>
+      <th>Удалить</th>
+    </tr>
+    <tr *ngFor="let book of books" TableTouch>
+      <td>{{book.bookName}}</td>
+      <td>{{book.bookAuthor}}</td>
+      <td>{{book.bookGenre}}</td>
+      <td>{{book.bookCount}}</td>
+      <td>
+        <input type="button" value="Открыть">
+      </td>
+      <td class="btn" (click)="clickHref('#popupEdit'); univBook(book)">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+      <td class="btn" (click)="clickHref('#popupDel'); univBook(book)">
+        <a class="buttonDel">Удалить</a>
+      </td>
+    </tr>
+
+  </table>
+</div>
+
+<!--Попап Добавления-->
+<div id="popupAdd" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="bookForm" (ngSubmit)="submitBookAdd(); clickHref()">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Добавить книгу</h3>
+          <input formControlName="bookName" placeholder="Название книги"/>
+          <input formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
+          <input formControlName="bookGenre" placeholder="Жанр"/>
+          <input type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
+          <button
+            [disabled]="bookForm.invalid"
+            [ngClass]="{formButtonInval: bookForm.invalid, formButtonVal: bookForm.valid}">Добавить
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Попап Редактирования-->
+<div id="popupEdit" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="bookForm" (ngSubmit)="submitBookEdit(); clickHref()">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Изменить книгу</h3>
+          <input formControlName="bookName" placeholder="Название книги"/>
+          <input formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
+          <input formControlName="bookGenre" placeholder="Жанр"/>
+          <input type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
+          <button
+            [disabled]="bookForm.invalid"
+            [ngClass]="{formButtonInval: bookForm.invalid, formButtonVal: bookForm.valid}">Изменить
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Попап Удаления-->
+<div id="popupDel" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="bookForm" (ngSubmit)="submitBookDel(); clickHref()">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Удалить книгу</h3>
+          <input readonly  formControlName="bookName" placeholder="Название книги"/>
+          <input readonly formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
+          <input readonly formControlName="bookGenre" placeholder="Жанр"/>
+          <input readonly formControlName="bookCount" placeholder="Количество"/>
+          <button class="del">Удалить
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

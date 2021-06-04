@@ -48,8 +48,8 @@ export class LibrarianMainComponent implements OnInit {
     return img
   }
 
-  btnNavigate(str: string) {
-    return this.route.navigate([`./${str}`], {relativeTo: this.router})
+  btnNavigate(route: string) {
+    return this.route.navigate([`./${route}`], {relativeTo: this.router})
   }
 
 

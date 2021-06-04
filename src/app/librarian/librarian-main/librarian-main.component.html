@@ -14,29 +14,30 @@
         </div>
       </div>
 
-      <div class="join">
+      <div class="join" routerLink="/librarian/borrowbook">
         <div class="joinsign">Застолбить книгу</div>
       </div>
 
       <div class="navleft">
 
         <ul>
+
           <li>
-            <div class="navleftElement" headingTouch>
-<!--              [ngClass]="{navleftElementsel: hovering === true, navleftElement: hovering === false}"-->
-<!--              (mouseenter)="hovering = true"-->
-<!--              (mouseleave)="hovering = false">-->
-              <img src="assets/icon/dash.svg">
+            <div class="navleftElement" headingTouch (click)="btnNavigate('dashboard')">
+              <img src="assets/icon/{{dynamicImg('dash', 'dashboard')}}.svg">
               Что-то важное
+              <div *ngIf="dynamicSelec('dashboard', 'Что-то важное')" class="selection"></div>
             </div>
           </li>
 
           <li>
-            <div class="navleftElement" headingTouch>
-              <img src="assets/icon/allcourses.svg">
+            <div class="navleftElement" headingTouch (click)="btnNavigate('borrowbook')">
+              <img src="assets/icon/{{dynamicImg('borrowbook', 'borrowbook')}}.svg">
               Книги в обороте
+              <div *ngIf="dynamicSelec('borrowbook', 'Книги в обороте')" class="selection"></div>
             </div>
           </li>
+
 
           <li>
             <div class="navleftElement" headingTouch (click)="btnNavigate('books')">

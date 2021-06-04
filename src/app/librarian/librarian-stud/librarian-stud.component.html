@@ -13,7 +13,7 @@
 </div>
 
 
-<div>
+<div class="TableUser">
   <table>
     <tr>
       <th>Имя</th>
@@ -38,6 +38,31 @@
   </table>
 </div>
 
+
+
+<div id="popupAdd" class="overlay">
+  <div class="popup">
+    <a class="close" href="{{thisUrl}}#">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="userForm" (ngSubmit)="submitUserAdd(); clickHref()">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Добавить читателя</h3>
+          <input formControlName="userLogin" placeholder="Логин"/>
+          <input formControlName="userPass" placeholder="Пароль"/>
+          <input formControlName="userName" placeholder="Имя"/>
+          <input formControlName="userLastName" placeholder="Фамилия"/>
+          <!--          <input formControlName="userFlag" placeholder="Флаг"/>-->
+          <button
+            [disabled]="userForm.invalid"
+            [ngClass]="{formButtonInval: userForm.invalid, formButtonVal: userForm.valid}">Добавить
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <div id="popupEdit" class="overlay">
   <div class="popup">
@@ -66,31 +91,6 @@
     </div>
   </div>
 </div>
-
-
-<div id="popupAdd" class="overlay">
-  <div class="popup">
-    <a class="close" href="{{thisUrl}}#">&times;</a>
-    <div class="content">
-      <form class="decor" novalidate [formGroup]="userForm">
-        <div class="form-left-decoration"></div>
-        <div class="form-right-decoration"></div>
-        <div class="form-inner">
-          <h3>Добавить читателя</h3>
-          <input formControlName="userLogin" placeholder="Логин"/>
-          <input formControlName="userPass" placeholder="Пароль"/>
-          <input formControlName="userName" placeholder="Имя"/>
-          <input formControlName="userLastName" placeholder="Фамилия"/>
-<!--          <input formControlName="userFlag" placeholder="Флаг"/>-->
-          <a class="join" href="{{thisUrl}}#" (click)="submitUserAdd()">
-            <a class="joinsign">Выполнить</a>
-          </a>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 
 <div id="popupDelete" class="overlay">
   <div class="popup">
