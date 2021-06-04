@@ -1,29 +1,42 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {authStudent} from "../../autorisation/student.interface";
 import {ActivatedRoute, Router} from "@angular/router";
+import {menuList} from "./lib-menulist";
 
 @Component({
   selector: 'app-librarian-main',
   templateUrl: './librarian-main.component.html',
   styleUrls: ['./librarian-main.component.css']
 })
-export class LibrarianMainComponent implements OnInit {
+export class LibrarianMainComponent implements OnInit, AfterViewChecked {
 
   userInfo: authStudent = JSON.parse(localStorage.getItem('authUser') as string)[0];
 
+  items:menuList[] = [];
   hovering: boolean = false;
   item: string = '';
   title: string = '';
 
-  constructor(private route: Router, private router: ActivatedRoute) {
+  constructor(private route: Router, private router: ActivatedRoute,  private cdRef: ChangeDetectorRef   ) {
   }
 
   ngOnInit(): void {
+    this.items = menuList;
   }
 
-  logout() {
-    localStorage.clear();
-    this.route.navigate(['/home'])
+  ngAfterViewChecked() {
+
+    this.items = menuList;
+    this.cdRef.detectChanges();
+  }
+
+  logout(flag: boolean = false) {
+
+    if (flag) {
+      localStorage.clear();
+      this.route.navigate(['/home'])
+    }
+
   }
 
   // selSrc(item: string): string {

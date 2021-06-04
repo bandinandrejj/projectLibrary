@@ -78,8 +78,8 @@
         <div class="form-right-decoration"></div>
         <div class="form-inner">
           <h3>Изменить книгу</h3>
-          <input formControlName="bookName" placeholder="Название книги"/>
-          <input formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
+          <input value="{{bookName}}" disabled  />
+          <input value="{{booAuthor}}" disabled  />
           <input formControlName="bookGenre" placeholder="Жанр"/>
           <input type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
           <button
@@ -102,8 +102,8 @@
         <div class="form-right-decoration"></div>
         <div class="form-inner">
           <h3>Удалить книгу</h3>
-          <input readonly  formControlName="bookName" placeholder="Название книги"/>
-          <input readonly formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
+          <input value="{{bookName}}" disabled  />
+          <input value="{{booAuthor}}" disabled  />
           <input readonly formControlName="bookGenre" placeholder="Жанр"/>
           <input readonly formControlName="bookCount" placeholder="Количество"/>
           <button class="del">Удалить

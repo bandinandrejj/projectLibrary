@@ -11,8 +11,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 })
 export class LibrarianStudComponent implements OnInit {
 
-  constructor(private _route: Router, private _service: LibService) {
-  }
+  constructor(private _route: Router, private _service: LibService) {}
 
 
   str: string = '';
@@ -44,6 +43,21 @@ export class LibrarianStudComponent implements OnInit {
   });
 
 
+  findUser(str: string) {
+    if (this.students.some((item, index) => item.userLastName === str || item.userName === str || `${item.userName} ${item.userLastName}` === str)) {
+      this.students = this.students.filter((item, index) => item.userLastName.includes(str) || item.userName.includes(str) || `${item.userName} ${item.userLastName}` === str);
+    } else {
+      this.students = this.viewStudents;
+    }
+  }
+
+  clickHref(href: string = '#') {
+    return window.location.href = this.thisUrl + `${href}`
+  }
+
+
+  // ----Валидация----
+
   checkUserValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const stud = this.students.map(item => item.userLogin);
     if (stud.includes(control.value)) {
@@ -52,7 +66,6 @@ export class LibrarianStudComponent implements OnInit {
       return null
     }
   }
-
 
   checkEmptinessInputValid(control: AbstractControl): { [key: string]: boolean } | null {
     if (control.value === null) {
@@ -63,21 +76,7 @@ export class LibrarianStudComponent implements OnInit {
   }
 
 
-  findUser(str: string) {
-    // if (this.students.some((item, index) => item.userLastName[index] === str[index] || item.userName[index] === str[index] || `${item.userName} ${item.userLastName}` === str)) {
-    //   console.log(this.students)
-    //   this.students = this.students.filter((item, index) => item.userLastName[index] === str[index] || item.userName[index] === str[index] || `${item.userName} ${item.userLastName}` === str);
-    // } else {
-    //   this.students = this.viewStudents;
-    // }
-
-    if (this.students.some((item, index) => item.userLastName === str || item.userName === str || `${item.userName} ${item.userLastName}` === str)) {
-      this.students = this.students.filter((item, index) => item.userLastName.includes(str) || item.userName.includes(str) || `${item.userName} ${item.userLastName}` === str);
-    } else {
-      this.students = this.viewStudents;
-    }
-  }
-
+  // ----Работа с формой----
 
   addUser() {
     this.userForm.reset({
@@ -87,9 +86,13 @@ export class LibrarianStudComponent implements OnInit {
   }
 
   submitUserAdd() {
+    this.userForm.patchValue({
+      userName: this.userForm.value['userName'].trim(),
+      userLastName: this.userForm.value['userLastName'].trim(),
+    })
+
     this._service.addUser(this.userForm.value)
   }
-
 
   univUser(data: authStudent) {
 
@@ -98,7 +101,7 @@ export class LibrarianStudComponent implements OnInit {
     this.userLoginTitle = data.userLogin;
 
     this.userForm.patchValue({
-      // userLogin: data.userLogin,
+      userLogin: '',
       userName: data.userName,
       userLastName: data.userLastName,
       userPass: data.userPass,
@@ -106,17 +109,17 @@ export class LibrarianStudComponent implements OnInit {
     })
   }
 
-
   deleteUser() {
     this._service.deleteUser(this.keyUser)
   }
 
   submitUserEdit() {
+    this.userForm.patchValue({
+      userLogin: this.userLoginTitle,
+      userName: this.userForm.value['userName'].trim(),
+      userLastName: this.userForm.value['userLastName'].trim(),
+    })
     this._service.updateUser(this.keyUser, this.userForm.value);
   }
 
-
-  clickHref(href: string = '#') {
-    return window.location.href = this.thisUrl + `${href}`
-  }
 }

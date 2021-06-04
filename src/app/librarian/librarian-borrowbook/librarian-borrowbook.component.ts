@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-librarian-borrowbook',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LibrarianBorrowbookComponent implements OnInit {
 
-  constructor() { }
+  thisUrl: string = this._route.url;
+  str: string = '';
+
+  constructor(private _route: Router) { }
 
   ngOnInit(): void {
   }

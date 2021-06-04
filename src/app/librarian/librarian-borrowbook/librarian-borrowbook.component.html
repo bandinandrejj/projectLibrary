@@ -1,1 +1,83 @@
-<p>librarian-borrowbook works!</p>
+<!--Добавление и поиск-->
+<div class="wrapper">
+  <a class="join" href="{{thisUrl}}#popupAdd">
+<!--    (click)="addBook()-->
+
+    <a class="joinsign">Арендовать книгу</a>
+  </a>
+
+  <div class="search">
+    <form action="" class="sline">
+      <input [(ngModel)]="str" name="findBook" type="text" placeholder="Поиск">
+<!--      (input)="findBook(str)"-->
+
+    </form>
+  </div>
+</div>
+
+
+<!--Таблица-->
+<div class="TableUser">
+  <table>
+    <tr>
+      <th>Фамилия</th>
+      <th>Имя</th>
+<!--      <th>Номер телефона??</th>-->
+      <th>Название книги</th>
+      <th>Автор</th>
+      <th>Дата взятия</th>
+      <th>Дата<br>(ожидаемого)<br>возврата</th>
+      <th>Редактирвоать</th>
+      <th>Удалить</th>
+    </tr>
+
+    <tr TableTouch>
+      <td>Бандин</td>
+      <td>Андрей</td>
+<!--      <td>+7(999) 999-99-99</td>-->
+      <td>Герой нашего времени</td>
+      <td>Михаил Лермонтов</td>
+      <td>04.06.2021</td>
+      <td>15.06.2021</td>
+      <td class="btn">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+      <td class="btn">
+        <a class="buttonDel">Удалить</a>
+      </td>
+    </tr>
+
+    <tr TableTouch>
+      <td>Сяинов</td>
+      <td>Тимур</td>
+<!--      <td>+7(999) 999-99-99</td>-->
+      <td>Мцыри</td>
+      <td>Михаил Лермонтов</td>
+      <td>04.06.2021</td>
+      <td>15.06.2021</td>
+      <td class="btn">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+      <td class="btn">
+        <a class="buttonDel">Удалить</a>
+      </td>
+    </tr>
+
+    <tr TableTouch>
+      <td>Степанов</td>
+      <td>Максим</td>
+<!--      <td>+7(999) 999-99-99</td>-->
+      <td>Война и мир</td>
+      <td>Лев Толстой</td>
+      <td>04.06.2021</td>
+      <td>15.06.2021</td>
+      <td class="btn">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+      <td class="btn">
+        <a class="buttonDel">Удалить</a>
+      </td>
+    </tr>
+
+  </table>
+</div>

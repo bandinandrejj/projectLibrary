@@ -15,57 +15,17 @@
       </div>
 
       <div class="join" routerLink="/librarian/borrowbook">
-        <div class="joinsign">Застолбить книгу</div>
+        <div class="joinsign">Забронировать книгу</div>
       </div>
 
       <div class="navleft">
 
         <ul>
-
-          <li>
-            <div class="navleftElement" headingTouch (click)="btnNavigate('dashboard')">
-              <img src="assets/icon/{{dynamicImg('dash', 'dashboard')}}.svg">
-              Что-то важное
-              <div *ngIf="dynamicSelec('dashboard', 'Что-то важное')" class="selection"></div>
-            </div>
-          </li>
-
-          <li>
-            <div class="navleftElement" headingTouch (click)="btnNavigate('borrowbook')">
-              <img src="assets/icon/{{dynamicImg('borrowbook', 'borrowbook')}}.svg">
-              Книги в обороте
-              <div *ngIf="dynamicSelec('borrowbook', 'Книги в обороте')" class="selection"></div>
-            </div>
-          </li>
-
-
-          <li>
-            <div class="navleftElement" headingTouch (click)="btnNavigate('books')">
-              <img src="assets/icon/{{dynamicImg('res', 'books')}}.svg">
-              Архив книг
-              <div *ngIf="dynamicSelec('books', 'Архив книг')" class="selection"></div>
-            </div>
-          </li>
-
-
-          <li>
-            <div class="navleftElement" headingTouch (click)="btnNavigate('students')">
-              <img src="assets/icon/{{dynamicImg('friends', 'students')}}.svg">
-<!--              <img src="assets/icon/friends.svg">-->
-              Читатели
-              <div *ngIf="dynamicSelec('students', 'Читатели')" class="selection"></div>
-            </div>
-          </li>
-<!--          <li>-->
-<!--            <div class="navleftElement">-->
-<!--              <img src="assets/icon/chats.svg">-->
-<!--              Chats-->
-<!--            </div>-->
-<!--          </li>-->
-          <li>
-            <div headingTouch (click)="logout()" class="navleftElement">
-              <img src="assets/icon/{{dynamicImg('settings', 'settings')}}.svg">
-              Выход
+          <li *ngFor="let item of items">
+            <div class="navleftElement" headingTouch (click)="btnNavigate(item.route); logout(item.logout)">
+              <img src="assets/icon/{{dynamicImg(item.img, item.route)}}.svg">
+              {{item.title}}
+              <div *ngIf="dynamicSelec(item.route, item.title)" class="selection"></div>
             </div>
           </li>
         </ul>
