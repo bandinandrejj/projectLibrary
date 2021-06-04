@@ -12,7 +12,6 @@ import {LibModule} from "./librarian/lib.module";
 import {AppRoutingModule} from "./app-routing.module";
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +25,7 @@ import {AppRoutingModule} from "./app-routing.module";
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

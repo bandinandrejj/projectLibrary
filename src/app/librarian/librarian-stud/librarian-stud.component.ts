@@ -39,6 +39,8 @@ export class LibrarianStudComponent implements OnInit {
     "userPass": new FormControl("", [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=(.*[a-zA-Z]){4}).{6,30}$')]),
     "userName": new FormControl("", [Validators.required]),
     "userLastName": new FormControl("", [Validators.required]),
+    "userPhone": new FormControl(""),
+    "userAdress": new FormControl(""),
     "userFlag": new FormControl("student"),
   });
 

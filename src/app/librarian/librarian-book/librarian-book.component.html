@@ -15,6 +15,7 @@
 
 <!--Таблица-->
 <div class="TableUser">
+  <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
   <table>
     <tr>
       <th>Название</th>
@@ -25,7 +26,7 @@
       <th>Редактирвоать</th>
       <th>Удалить</th>
     </tr>
-    <tr *ngFor="let book of books" TableTouch>
+    <tr *cdkVirtualFor="let book of books" TableTouch>
       <td>{{book.bookName}}</td>
       <td>{{book.bookAuthor}}</td>
       <td>{{book.bookGenre}}</td>
@@ -42,6 +43,7 @@
     </tr>
 
   </table>
+  </cdk-virtual-scroll-viewport>
 </div>
 
 <!--Попап Добавления-->

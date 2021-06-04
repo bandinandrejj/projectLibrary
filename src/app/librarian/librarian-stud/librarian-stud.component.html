@@ -14,6 +14,7 @@
 
 
 <div class="TableUser">
+<cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
   <table>
     <tr>
       <th>Имя</th>
@@ -23,20 +24,29 @@
       <th>Редактирвоать</th>
       <th>Удалить</th>
     </tr>
-    <tr *ngFor="let student of students" TableTouch>
-      <td>{{student.userName}}</td>
-      <td>{{student.userLastName}}</td>
-      <td>{{student.userLogin}}</td>
-      <td>{{student.userPass}}</td>
-      <td class="btn" (click)="clickHref('#popupEdit'); univUser(student)">
-        <a class="buttonEdit">Редактирвоать</a>
-      </td>
-      <td class="btn" (click)="clickHref('#popupDelete'); univUser(student)">
-        <a class="buttonDel">Удалить</a>
-      </td>
-    </tr>
+
+
+      <tr *cdkVirtualFor="let student of students" TableTouch>
+        <td>{{student.userName}}</td>
+        <td>{{student.userLastName}}</td>
+        <td>{{student.userLogin}}</td>
+        <td>{{student.userPass}}</td>
+        <td class="btn" (click)="clickHref('#popupEdit'); univUser(student)">
+          <a class="buttonEdit">Редактирвоать</a>
+        </td>
+        <td class="btn" (click)="clickHref('#popupDelete'); univUser(student)">
+          <a class="buttonDel">Удалить</a>
+        </td>
+      </tr>
+
+
   </table>
+</cdk-virtual-scroll-viewport>
 </div>
+
+
+
+
 
 
 
@@ -53,6 +63,9 @@
           <input formControlName="userPass" placeholder="Пароль"/>
           <input formControlName="userName" placeholder="Имя"/>
           <input formControlName="userLastName" placeholder="Фамилия"/>
+          <input formControlName="userPhone" type="text" placeholder="Номер телефона">
+          <textarea formControlName="userAdress" placeholder="Адрес"></textarea>
+
           <!--          <input formControlName="userFlag" placeholder="Флаг"/>-->
           <button
             [disabled]="userForm.invalid"
@@ -75,7 +88,7 @@
 
           <h3>Изменить читателя</h3>
 
-          <input value="{{userLoginTitle}}" disabled  />
+          <input value="{{userLoginTitle}}" disabled/>
           <input formControlName="userPass" placeholder="Пароль"/>
           <input formControlName="userName" placeholder="Имя"/>
           <input formControlName="userLastName" placeholder="Фамилия"/>

@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import { LibrTableTouchDirective } from './libr-table-touch.directive';
 import { LibrarianBorrowbookComponent } from './librarian-borrowbook/librarian-borrowbook.component';
 import { LibrarianDashboardComponent } from './librarian-dashboard/librarian-dashboard.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { LibrarianDashboardComponent } from './librarian-dashboard/librarian-das
     LibrarianStudComponent,
     LibrarianBookComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    ReactiveFormsModule,
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        ReactiveFormsModule,
+        ScrollingModule,
+    ]
 })
 export class LibModule { }
