@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {map} from "rxjs/operators";
 import {authStudent} from "../autorisation/student.interface";
 import {AngularFireDatabase} from "@angular/fire/database";
-import {Book} from "./book.interface";
+import {Book, Comment} from "./book.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +63,38 @@ export class LibService {
   deleteBook(key: string) {
     this.db.list('/book').remove(key);
   }
+
+
+  // ----------- service comment -----------
+
+  getAllComments() {
+    return this.db.list('/comment')
+      .snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c => ({ key: c.payload.key, ...c.payload.val() as Comment }))
+        )
+      );
+  }
+
+  addComment(data: object) {
+    this.db.list('/comment').push(data);
+  }
+
+  deleteComment(key: string) {
+    this.db.list('/comment').remove(key);
+  }
+
+  updateComment(key: string, data: object) {
+    this.db.list('/comment').update(key, data);
+  }
+
+
+
+
+
+
+
+
 
 }
 

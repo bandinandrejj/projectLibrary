@@ -14,18 +14,17 @@
 
 
 <div class="TableUser">
-<cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
-  <table>
-    <tr>
-      <th>Имя</th>
-      <th>Фамилия</th>
-      <th>Логин</th>
-      <th>Пароль</th>
-      <th>Редактирвоать</th>
-      <th>Удалить</th>
-    </tr>
 
-
+  <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
+    <table>
+      <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Редактирвоать</th>
+        <th>Удалить</th>
+      </tr>
       <tr *cdkVirtualFor="let student of students" TableTouch>
         <td (click)="univUser(student, '#popupOpen')">
           {{student.userName}}
@@ -46,16 +45,9 @@
           <a class="buttonDel">Удалить</a>
         </td>
       </tr>
-
-
-  </table>
-</cdk-virtual-scroll-viewport>
+    </table>
+  </cdk-virtual-scroll-viewport>
 </div>
-
-
-
-
-
 
 
 <div id="popupAdd" class="overlay">

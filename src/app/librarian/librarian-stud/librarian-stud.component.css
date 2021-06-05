@@ -11,18 +11,12 @@ table {
   width: 100%;
 }
 
-td {
-  padding: 10px;
-  text-align: center;
-}
 
 .btn:active {
   transform: scale(.95);
 }
 
-th {
-  padding: 10px;
-}
+
 
 tr > th {
   border-bottom: solid 1px;
@@ -35,6 +29,17 @@ tr > td {
 
 tr > td:first-child, tr > th:first-child {
   border-left: 0;
+}
+
+th {
+  padding: 10px;
+  /*width: 155px;*/
+}
+
+td {
+  /*width: 155px;*/
+  padding: 10px;
+  text-align: center;
 }
 
 
