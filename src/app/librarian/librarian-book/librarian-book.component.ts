@@ -38,8 +38,7 @@ export class LibrarianBookComponent implements OnInit {
   userLastName: string = JSON.parse(localStorage.getItem('authUser') as string)[0].userLastName;
 
 
-  constructor(private _route: Router, private _service: LibService) {
-  }
+  constructor(private _route: Router, private _service: LibService) {}
 
   ngOnInit(): void {
     this._service.debugHash(this.thisUrl);
@@ -57,12 +56,12 @@ export class LibrarianBookComponent implements OnInit {
 
   }
 
-
   bookForm: FormGroup = new FormGroup({
     "bookName": new FormControl("", this.checkEmptinessInputValid),
     "bookAuthor": new FormControl("", this.checkEmptinessInputValid),
     "bookGenre": new FormControl("", [Validators.required]),
     "bookCount": new FormControl("", [Validators.required]),
+    "bookInStock": new FormControl(""),
   }, {validators: this.checkBooksValidator.bind(this)})
 
   bookCommentForm: FormGroup = new FormGroup({
@@ -75,9 +74,12 @@ export class LibrarianBookComponent implements OnInit {
 
 
   findBook(str: string) {
-    if (this.books.some((item, index) => item.bookName === str || item.bookAuthor === str || item.bookGenre === str)) {
-      this.books = this.books.filter((item, index) => item.bookName.includes(str) || item.bookAuthor.includes(str) || item.bookGenre.includes(str));
-    } else {
+    this.books = this.books.filter(item =>
+      item.bookName.toUpperCase().includes(str.toUpperCase()) ||
+      item.bookAuthor.toUpperCase().includes(str.toUpperCase()) ||
+      item.bookGenre.toUpperCase().includes(str.toUpperCase())
+    )
+    if (this.books.length === 0 || str.length === 0) {
       this.books = this.viewBooks;
     }
   }
@@ -112,21 +114,24 @@ export class LibrarianBookComponent implements OnInit {
 
   // ----Работа с формой книг----
 
-  submitBookAdd() {
-    this.bookForm.patchValue({
-      bookName: this.bookForm.value['bookName'].trim(),
-      bookAuthor: this.bookForm.value['bookAuthor'].trim(),
-    })
-
-    this._service.addBook(this.bookForm.value)
-  }
-
   addBook() {
     this.bookForm.reset({
       bookComment: 'BETA',
       bookCount: '1'
     });
   }
+
+  submitBookAdd() {
+    this.bookForm.patchValue({
+      bookName: this.bookForm.value['bookName'].trim(),
+      bookAuthor: this.bookForm.value['bookAuthor'].trim(),
+      bookInStock: this.bookForm.value['bookCount']
+    })
+
+    this._service.addBook(this.bookForm.value)
+  }
+
+
 
   univBook(book: Book) {
     // console.log(book)
@@ -140,6 +145,7 @@ export class LibrarianBookComponent implements OnInit {
       bookAuthor: '',
       bookGenre: book.bookGenre,
       bookCount: book.bookCount,
+      bookInStock: book.bookInStock,
     })
   }
 

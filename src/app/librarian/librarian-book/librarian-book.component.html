@@ -22,15 +22,18 @@
         <th>Автор</th>
         <th>Жанр</th>
         <th>Кол-во</th>
+        <th>В наличии</th>
         <th>Комментарии</th>
         <th>Редактирвоать</th>
         <th>Удалить</th>
       </tr>
-      <tr *cdkVirtualFor="let book of books" TableTouch>
+      <tr *cdkVirtualFor="let book of books" TableTouch [ngClass]="{nullInStockBaclground: book.bookInStock <= 0}">
         <td>{{book.bookName}}</td>
         <td>{{book.bookAuthor}}</td>
         <td>{{book.bookGenre}}</td>
         <td>{{book.bookCount}}</td>
+        <td>{{book.bookInStock}}</td>
+
         <td (click)="clickHref('#popupComment'); dataComment(book)">
           <a class="buttonOpen">Открыть</a>
         </td>
@@ -60,7 +63,8 @@
           <input formControlName="bookName" placeholder="Название книги"/>
           <input formControlName="bookAuthor" placeholder="Автор (Фамилия + Имя)"/>
           <input formControlName="bookGenre" placeholder="Жанр"/>
-          <input type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
+          <label for="count">Количество</label>
+          <input id="count" type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
           <button
             [disabled]="bookForm.invalid"
             [ngClass]="{formButtonInval: bookForm.invalid, formButtonVal: bookForm.valid}">Добавить
@@ -86,6 +90,7 @@
           <input value="{{booAuthor}}" disabled/>
           <input formControlName="bookGenre" placeholder="Жанр"/>
           <input type="number" min="1" formControlName="bookCount" placeholder="Количество"/>
+          <input type="number" min="0" [max]="bookForm.value['bookCount']" formControlName="bookInStock" placeholder="Количество"/>
           <button
             [disabled]="bookForm.invalid"
             [ngClass]="{formButtonInval: bookForm.invalid, formButtonVal: bookForm.valid}">Изменить
@@ -110,6 +115,7 @@
           <input value="{{booAuthor}}" disabled/>
           <input readonly formControlName="bookGenre" placeholder="Жанр"/>
           <input readonly formControlName="bookCount" placeholder="Количество"/>
+          <input readonly formControlName="bookInStock" placeholder="В наличии"/>
           <button class="del">Удалить
           </button>
         </div>
@@ -120,7 +126,7 @@
 
 <!--Попап Комментариев (Добавление)-->
 <div id="popupComment" class="overlay">
-  <div class="popup">
+  <div class="popup popupComm">
     <a class="close" href="{{thisUrl}}#">&times;</a>
 
     <div class="contentComment">

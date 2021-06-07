@@ -46,11 +46,23 @@ export class LibrarianStudComponent implements OnInit {
 
 
   findUser(str: string) {
-    if (this.students.some((item, index) => item.userLastName === str || item.userName === str || `${item.userName} ${item.userLastName}` === str)) {
-      this.students = this.students.filter((item, index) => item.userLastName.includes(str) || item.userName.includes(str) || `${item.userName} ${item.userLastName}` === str);
-    } else {
+
+    this.students = this.students.filter(item =>
+      item.userName.toUpperCase().includes(str.toUpperCase()) ||
+      item.userLastName.toUpperCase().includes(str.toUpperCase()) ||
+      item.userLogin.toUpperCase().includes(str.toUpperCase()) ||
+      item.userPhone.toUpperCase().includes(str.toUpperCase())
+    )
+
+    if (this.students.length === 0 || str.length === 0) {
       this.students = this.viewStudents;
     }
+
+    // if (this.students.some((item, index) => item.userLastName === str || item.userName === str || `${item.userName} ${item.userLastName}` === str)) {
+    //   this.students = this.students.filter((item, index) => item.userLastName.includes(str) || item.userName.includes(str) || `${item.userName} ${item.userLastName}` === str);
+    // } else {
+    //   this.students = this.viewStudents;
+    // }
   }
 
   clickHref(href: string = '#') {

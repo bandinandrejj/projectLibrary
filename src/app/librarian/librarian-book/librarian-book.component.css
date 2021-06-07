@@ -504,9 +504,12 @@ input[readonly] {
 
 
 div.popup {
-  width: 850px;
+  width: 35%;
 }
 
+div.popupComm {
+  width: 850px;
+}
 
 tr.trBorder > td {
   border-left: none;
@@ -584,6 +587,11 @@ tr.trBorder > td {
   margin: 10px auto;
 }
 
+label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
 .formCom {
   display: flex;
   height: 100%;
@@ -610,6 +618,10 @@ tr.trBorder > td {
 
 .btnCommYel {
   background-color: #ffd800;
+}
+
+.nullInStockBaclground > td{
+  background-color: rgba(245, 86, 86, 0.5);
 }
 
 

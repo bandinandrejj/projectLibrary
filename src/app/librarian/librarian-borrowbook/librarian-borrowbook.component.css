@@ -331,7 +331,8 @@ tr > td:first-child, tr > th:first-child {
 
 .form-inner input, .form-inner textarea {
   display: block;
-  width: 100%;
+  width: 250px;
+  height: 50px;
   padding: 0 20px;
   margin-bottom: 10px;
   background: #E9EFF6;
@@ -339,6 +340,11 @@ tr > td:first-child, tr > th:first-child {
   /*border-width: 0;*/
   /*border-radius: 20px;*/
   font-family: 'Roboto', sans-serif;
+}
+
+.virtual-scroll {
+  height: 337px;
+  width: 100%;
 }
 
 /*.form-inner input[type="submit"] {*/
@@ -429,3 +435,104 @@ input[readonly] {
   border-color: rgba(118, 118, 118, 0.3);
 }
 
+/*Toggle Switch*/
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bb4e4e;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #257cd4;
+}
+
+
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.selInput {
+  /*display: block;*/
+  width: 294px;
+  height: 50px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  background: #E9EFF6;
+  line-height: 40px;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.selInput.ng-invalid {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+.selInput.ng-valid {
+  border: 2px solid green;
+  border-radius: 4px;
+}
+
+.returnBaclground > td{
+background-color: rgba(6, 216, 95, 0.5);
+}
+
+.NOreturnBaclground > td{
+background-color: rgba(245, 86, 86, 0.5);
+}
+
+label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.mgTop {
+  margin-top: 10px;
+}
