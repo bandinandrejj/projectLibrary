@@ -3,7 +3,7 @@ import {Directive, ElementRef, HostListener, EventEmitter,  Input, Output, Rende
 @Directive({
   selector: '[headingTouch]'
 })
-export class LibrHeadingTouchDirective {
+export class HeadingTouchDirective {
 
   @Output() boolTouchOut = new EventEmitter<boolean>();
 

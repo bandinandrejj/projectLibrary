@@ -3,7 +3,7 @@ import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
 @Directive({
   selector: '[TableTouch]'
 })
-export class LibrTableTouchDirective {
+export class TableTouchDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2){
     this.renderer.setStyle(this.element.nativeElement, "cursor", "pointer");

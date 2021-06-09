@@ -25,7 +25,6 @@ export class LibrarianMainComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-
     this.items = menuList;
     this.cdRef.detectChanges();
   }

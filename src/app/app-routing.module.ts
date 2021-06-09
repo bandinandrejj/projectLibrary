@@ -10,12 +10,20 @@ import {LibrarianMainComponent} from "./librarian/librarian-main/librarian-main.
 import {LibrGuard} from "./librarian/libr.guard";
 import {LibrarianBorrowbookComponent} from "./librarian/librarian-borrowbook/librarian-borrowbook.component";
 import {LibrarianDashboardComponent} from "./librarian/librarian-dashboard/librarian-dashboard.component";
+import {StudentBookComponent} from "./student/student-book/student-book.component";
+import {StudentDashboardComponent} from "./student/student-dashboard/student-dashboard.component";
 
 
 const routes: Routes = [
   {path: '', component: AutorisationComponent},
   {path: 'home', redirectTo: '', component: AutorisationComponent},
-  {path: 'student', component: StudentMainComponent, canActivate: [StudGuard]},
+  {path: 'student', component: StudentMainComponent, canActivate: [StudGuard],
+    children: [
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path: 'books', component: StudentBookComponent},
+      {path: 'dashboard', component: StudentDashboardComponent},
+    ]
+  },
   {path: 'librarian', component: LibrarianMainComponent, canActivate: [LibrGuard],
     children: [
       {path: '', redirectTo: 'students', pathMatch: 'full'},

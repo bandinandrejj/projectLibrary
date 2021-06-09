@@ -150,8 +150,8 @@
 
             <div>
               <div class="btnComm">
-                <a *ngIf="comment.userKey === userKey" (click)="commentEdit(comment)" class="buttonEdit">Ред</a>
-                <a *ngIf="comment.userKey === userKey" (click)="buttonDelete(comment)" class="buttonDel">Уд</a>
+                <a (click)="commentEdit(comment)" class="buttonEdit">Ред</a>
+                <a (click)="buttonDelete(comment)" class="buttonDel">Уд</a>
               </div>
               <p class="userComName">{{comment.userName}} {{comment.userLastName}}</p>
               <p class="userComDisc">{{comment.userComment}}</p>

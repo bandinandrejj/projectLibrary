@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {LibService} from "../lib.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -30,7 +30,7 @@ export class LibrarianBorrowbookComponent implements OnInit {
   borrowBooks: BorrowBook[] = [];
   viewBorrowBooks: BorrowBook[] = [];
 
-  constructor(private _route: Router, private _service: LibService) {
+  constructor(private _route: Router, private _service: LibService, private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -90,11 +90,12 @@ export class LibrarianBorrowbookComponent implements OnInit {
   }
 
 
-
   returnBookCheck(borrowBook: BorrowBook) {
+
     borrowBook.returnBookCheck = !borrowBook.returnBookCheck;
 
-    const countBook: Book[] = this.books.filter(item => item.key === borrowBook.book.bookKey)
+    const countBook: Book[] = this.books.filter(item => item.key === borrowBook.book.bookKey);
+
 
     if (borrowBook.returnBookCheck) {
       this._service.updateBook(borrowBook.book.bookKey, {bookInStock: countBook[0].bookInStock + 1})
@@ -103,6 +104,11 @@ export class LibrarianBorrowbookComponent implements OnInit {
     }
 
     this._service.updateBorrowBook(borrowBook.key as string, borrowBook)
+  }
+
+  checkCountBook(borrowBook: BorrowBook): boolean {
+    const book = this.books.filter(item => item.key === borrowBook.book.bookKey);
+    return borrowBook.returnBookCheck && book[0].bookInStock === 0;
   }
 
 
