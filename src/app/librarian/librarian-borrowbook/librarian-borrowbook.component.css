@@ -428,6 +428,11 @@ input.ng-valid {
   border-radius: 4px;
 }
 
+input.ng-untouched, input.ng-pristine {
+  border: 2px solid #282828;
+  border-radius: 4px;
+}
+
 input[readonly] {
   color: rgb(84, 84, 84);
   cursor: default;
@@ -517,6 +522,11 @@ input:checked + .slider:before {
 
 .selInput.ng-valid {
   border: 2px solid green;
+  border-radius: 4px;
+}
+
+.selInput.ng-untouched, .selInput.ng-pristine {
+  border: 2px solid #282828;
   border-radius: 4px;
 }
 

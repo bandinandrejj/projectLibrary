@@ -1,0 +1,53 @@
+<div class="TableUser">
+
+
+  <table>
+    <tr>
+      <th *ngFor="let heading of headings">{{heading}}</th>
+    </tr>
+    <tr *ngFor="let object of arrayObects | paginate: { itemsPerPage: 5, currentPage: p }" TableTouch
+        [ngClass]="{nullInStockBaclground: trNgClassBoolean(object), returnBaclground: object.returnBookCheck}">
+      <td *ngFor="let key of objectKeys">
+        {{object[key]}}
+      </td>
+
+      <td *ngIf="popupComment" class="btn" (click)="sendObject(object); clickHref('#popupComment')">
+        <a class="buttonOpen">Открыть</a>
+      </td>
+
+      <td *ngIf="popupOpen" class="btn" (click)="sendObject(object); clickHref('#popupOpen')">
+        <a class="buttonOpen">Открыть</a>
+      </td>
+
+      <td *ngIf="popupEdit" class="btn" (click)="sendObject(object); clickHref('#popupEdit')">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+
+      <td *ngIf="popupDelete" class="btn" (click)="sendObject(object); clickHref('#popupDelete')">
+        <a class="buttonDel">Удалить</a>
+      </td>
+
+      <td *ngIf="buttonSwitch">
+        <label class="switch">
+          <input type="checkbox" [checked]="object.returnBookCheck"
+                 (click)="sendObjectSwitch(object)"
+                 [disabled]="checkStock">
+          <span class="slider round"></span>
+        </label>
+      </td>
+
+
+
+    </tr>
+
+  </table>
+
+
+  <pagination-controls (pageChange)="p = $event"
+                       previousLabel="Назад"
+                       nextLabel="Вперед"
+                       [autoHide]=true>
+  </pagination-controls>
+
+
+</div>

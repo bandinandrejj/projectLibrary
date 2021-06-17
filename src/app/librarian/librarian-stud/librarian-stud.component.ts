@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {LibService} from "../lib.service";
-import {authStudent} from "../../autorisation/student.interface";
+import {LibService} from "../../services/lib.service";
+import {authStudent} from "../../authorization/student.interface";
 import {Router} from "@angular/router";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Book} from "../book.interface";
 
 @Component({
   selector: 'app-librarian-stud',
@@ -13,15 +14,22 @@ export class LibrarianStudComponent implements OnInit {
 
   constructor(private _route: Router, private _service: LibService) {}
 
-
   str: string = '';
   viewStudents: authStudent[] = [];
   students: authStudent[] = [];
   thisUrl: string = this._route.url;
-  keyUser: string = '';
   fullNameUser: string = '';
-  userLoginTitle: string = '';
 
+  touchStudentObj: authStudent = { // Он просит инициализацию
+    key: '',
+    userLogin: '',
+    userPass: '',
+    userName: '',
+    userLastName: '',
+    userPhone: '',
+    userAdress: '',
+    userFlag: '',
+  };
 
   ngOnInit(): void {
 
@@ -44,7 +52,6 @@ export class LibrarianStudComponent implements OnInit {
     "userFlag": new FormControl("student",[Validators.required]),
   });
 
-
   findUser(str: string) {
 
     this.students = this.students.filter(item =>
@@ -58,17 +65,10 @@ export class LibrarianStudComponent implements OnInit {
       this.students = this.viewStudents;
     }
 
-    // if (this.students.some((item, index) => item.userLastName === str || item.userName === str || `${item.userName} ${item.userLastName}` === str)) {
-    //   this.students = this.students.filter((item, index) => item.userLastName.includes(str) || item.userName.includes(str) || `${item.userName} ${item.userLastName}` === str);
-    // } else {
-    //   this.students = this.viewStudents;
-    // }
   }
-
   clickHref(href: string = '#') {
     return window.location.href = this.thisUrl + `${href}`
   }
-
 
   // ----Валидация----
 
@@ -109,38 +109,42 @@ export class LibrarianStudComponent implements OnInit {
     this._service.addUser(this.userForm.value)
   }
 
-  univUser(data: authStudent, href?: string) {
-
-    this.keyUser = data.key as string;
-    this.fullNameUser = `${data.userName} ${data.userLastName}`
-    this.userLoginTitle = data.userLogin;
-
-    this.userForm.patchValue({
-      userLogin: '',
-      userName: data.userName,
-      userLastName: data.userLastName,
-      userPass: data.userPass,
-      userPhone: data.userPhone,
-      userAdress: data.userAdress,
-      userFlag: data.userFlag,
-    })
-
-    this.clickHref(href)
-
-  }
-
-  deleteUser() {
-    this._service.deleteUser(this.keyUser)
-  }
-
   submitUserEdit() {
     this.userForm.patchValue({
-      userLogin: this.userLoginTitle,
+      userLogin: this.touchStudentObj.userLogin,
       userName: this.userForm.value['userName'].trim(),
       userLastName: this.userForm.value['userLastName'].trim(),
       userAdress: this.userForm.value['userAdress'] === undefined ? '' : this.userForm.value['userAdress'],
     })
-    this._service.updateUser(this.keyUser, this.userForm.value);
+
+    this._service.updateUser(this.touchStudentObj.key as string, this.userForm.value);
   }
 
+  deleteUser() {
+    this._service.deleteUser(this.touchStudentObj.key as string)
+  }
+
+
+
+  checkFn = (item: Book): boolean => { // Функция которая красит нужные строки, но нужно подумать о ней.
+    return false
+  }
+
+
+  touchStudent(stud: authStudent) {
+
+    this.touchStudentObj = stud;
+    this.fullNameUser = `${stud.userName} ${stud.userLastName}`;
+
+    this.userForm.patchValue({
+      userLogin: '',
+      userPass: stud.userPass,
+      userName: stud.userName,
+      userLastName: stud.userLastName,
+      userPhone: stud.userPhone,
+      userAdress: stud.userAdress,
+      userFlag: stud.userFlag,
+    });
+
+  }
 }

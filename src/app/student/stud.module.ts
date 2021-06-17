@@ -8,6 +8,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GenModule} from "../general/gen.module";
 import {LibModule} from "../librarian/lib.module";
+import {TableComponent} from "../general/table/table.component";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 

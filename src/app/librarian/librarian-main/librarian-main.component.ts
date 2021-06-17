@@ -1,5 +1,5 @@
 import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {authStudent} from "../../autorisation/student.interface";
+import {authStudent} from "../../authorization/student.interface";
 import {ActivatedRoute, Router} from "@angular/router";
 import {menuList} from "./lib-menulist";
 

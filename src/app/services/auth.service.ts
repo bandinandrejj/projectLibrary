@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, SnapshotAction} from "@angular/fire/database";
 import {map} from "rxjs/operators";
-import {authStudent} from "./student.interface";
+import {authStudent} from "../authorization/student.interface";
 import {Observable, Subscription} from "rxjs";
 
 

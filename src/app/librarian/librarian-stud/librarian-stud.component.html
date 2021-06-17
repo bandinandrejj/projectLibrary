@@ -13,41 +13,18 @@
 </div>
 
 
-<div class="TableUser">
-
-  <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
-    <table>
-      <tr>
-        <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>Редактирвоать</th>
-        <th>Удалить</th>
-      </tr>
-      <tr *cdkVirtualFor="let student of students" TableTouch>
-        <td (click)="univUser(student, '#popupOpen')">
-          {{student.userName}}
-        </td>
-        <td (click)="univUser(student, '#popupOpen')">
-          {{student.userLastName}}
-        </td>
-        <td (click)="univUser(student, '#popupOpen')">
-          {{student.userLogin}}
-        </td>
-        <td (click)="univUser(student, '#popupOpen')">
-          {{student.userPass}}
-        </td>
-        <td class="btn" (click)="univUser(student, '#popupEdit')">
-          <a class="buttonEdit">Редактирвоать</a>
-        </td>
-        <td class="btn" (click)="univUser(student,'#popupDelete')">
-          <a class="buttonDel">Удалить</a>
-        </td>
-      </tr>
-    </table>
-  </cdk-virtual-scroll-viewport>
-</div>
+<!--Таблица-->
+<app-table
+  [headings]="['Имя', 'Фамилия', 'Логин', 'Пароль', 'Информация о читателе' ,'Редактировать', 'Удалить']"
+  [objectKeys]="['userName', 'userLastName', 'userLogin', 'userPass']"
+  [arrayObects]="students"
+  [trNgClassBoolean]="checkFn"
+  [popupOpen]="true"
+  [popupEdit]="true"
+  [popupDelete]="true"
+  (object)="touchStudent($event)"
+>
+</app-table>
 
 
 <div id="popupAdd" class="overlay">
@@ -88,7 +65,7 @@
 
           <h3>Изменить читателя</h3>
 
-          <input value="{{userLoginTitle}}" disabled/>
+          <input value="{{touchStudentObj.userLogin}}" readonly/>
           <input formControlName="userPass" placeholder="Пароль"/>
           <input formControlName="userName" placeholder="Имя"/>
           <input formControlName="userLastName" placeholder="Фамилия"/>
@@ -116,8 +93,8 @@
         <div class="form-right-decoration"></div>
         <div class="form-inner">
 
-          <h3>Изменить читателя</h3>
-          <input value="{{userLoginTitle}}" readonly/>
+          <h3>Информация о читателе</h3>
+          <input value="{{touchStudentObj.userLogin}}" readonly/>
           <input readonly formControlName="userPass"/>
           <input readonly formControlName="userName"/>
           <input readonly formControlName="userLastName"/>

@@ -120,7 +120,6 @@ tr > td:first-child, tr > th:first-child {
 
 /*-----------------[POP-UP]-----------------*/
 
-
 .buttonEdit {
   background-color: #ffd800;
   text-decoration: none;
@@ -170,20 +169,68 @@ tr > td:first-child, tr > th:first-child {
 }
 
 
-/*.button {*/
-/*  font-size: 1em;*/
-/*  padding: 10px;*/
-/*  color: #fff;*/
-/*  border: 2px solid #06D85F;*/
-/*  border-radius: 20px/50px;*/
-/*  text-decoration: none;*/
-/*  cursor: pointer;*/
-/*  transition: all 0.3s ease-out;*/
-/*}*/
 
-/*.button:hover {*/
-/*  background: #06D85F;*/
-/*}*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bb4e4e;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #257cd4;
+}
+
+
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
 
 
 .overlay {
@@ -452,11 +499,6 @@ input.ng-valid {
   border-radius: 4px;
 }
 
-input.ng-untouched, input.ng-pristine {
-  border: 2px solid #282828;
-  border-radius: 4px;
-}
-
 input[readonly] {
   color: rgb(84, 84, 84);
   cursor: default;
@@ -628,6 +670,10 @@ label {
 
 .nullInStockBaclground > td{
   background-color: rgba(245, 86, 86, 0.5);
+}
+
+.returnBaclground > td{
+  background-color: rgba(6, 216, 95, 0.5);
 }
 
 

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../../services/auth.service";
 import {authStudent} from "../student.interface";
 import {Router} from "@angular/router";
 
@@ -19,6 +19,7 @@ export class AutorisationComponent implements OnInit {
   authUser: any;
   userPassInvalid: boolean = false;
   userAuthInvalid: boolean = false;
+  abc: any
 
   ngOnInit(): void {
   }
@@ -35,7 +36,7 @@ export class AutorisationComponent implements OnInit {
 
 
 
-    this._service.getAuth(this.authForm.value.userLogin)
+   this._service.getAuth(this.authForm.value.userLogin)
       .subscribe((item: authStudent[]) => {
           if (item.length === 0 || item.length > 1) {
             this.userAuthInvalid = true;
@@ -54,6 +55,7 @@ export class AutorisationComponent implements OnInit {
         }
       )
   }
+
 
 
 

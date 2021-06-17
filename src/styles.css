@@ -2,3 +2,7 @@ div {
   margin-left: 0;
 }
 
+.ngx-pagination .current {
+  background-color: #5E81F4 !important;
+  margin: 15px 0px !important;
+}

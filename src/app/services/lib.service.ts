@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {map} from "rxjs/operators";
-import {authStudent} from "../autorisation/student.interface";
+import {authStudent} from "../authorization/student.interface";
 import {AngularFireDatabase} from "@angular/fire/database";
-import {Book, BorrowBook, Comment} from "./book.interface";
+import {Book, BorrowBook, Comment} from "../librarian/book.interface";
 
 @Injectable({
   providedIn: 'root'

@@ -416,7 +416,6 @@ button.ghost {
 }
 
 
-
 input.ng-invalid {
   border: 2px solid red;
   border-radius: 4px;
@@ -424,6 +423,11 @@ input.ng-invalid {
 
 input.ng-valid {
   border: 2px solid green;
+  border-radius: 4px;
+}
+
+input.ng-untouched, input.ng-pristine {
+  border: 2px solid #282828;
   border-radius: 4px;
 }
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/database";
 import {map} from "rxjs/operators";
-import {authStudent} from "../autorisation/student.interface";
 import {Book, BorrowBook, Comment} from "../librarian/book.interface";
 
 @Injectable({
@@ -21,7 +20,7 @@ export class StudService {
   }
 
   getInfoStuds() {
-    return this.db.list('/borrowbook', ref => ref.orderByChild('student/studKey')
+    return this.db.list('/borrowbook', ref => ref.orderByChild('studKey')
       .equalTo(this.studID))
       .snapshotChanges().pipe(
         map(changes =>

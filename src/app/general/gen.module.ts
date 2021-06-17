@@ -5,24 +5,27 @@ import {LibrarianStudComponent} from "../librarian/librarian-stud/librarian-stud
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {NgxMaskModule} from "ngx-mask";
+import {RouterModule} from "@angular/router";
+import {TableTouchDirective} from "./table-touch.directive";
+import {TableComponent} from "./table/table.component";
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 
 @NgModule({
   declarations: [
     HeadingTouchDirective,
-    LibrarianStudComponent,
+    TableTouchDirective,
+    TableComponent,
   ],
   exports: [
     HeadingTouchDirective,
-    LibrarianStudComponent,
+    TableTouchDirective,
+    TableComponent,
   ],
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ScrollingModule,
-        NgxMaskModule
+      CommonModule,
+      NgxPaginationModule,
     ]
 })
 export class GenModule { }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {LibService} from "../lib.service";
+import {LibService} from "../../services/lib.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Book, Comment} from "../book.interface";
 
@@ -11,6 +11,16 @@ import {Book, Comment} from "../book.interface";
 })
 export class LibrarianBookComponent implements OnInit {
 
+
+  touchBookObj: Book = {
+    bookKey: '',
+    bookName: '',
+    bookAuthor: '',
+    bookGenre: '',
+    bookCount: 0,
+    bookInStock: 0,
+  };
+
   str: string = '';
   thisUrl: string = this._route.url;
 
@@ -18,7 +28,6 @@ export class LibrarianBookComponent implements OnInit {
 
   viewBooks: Book[] = [];
   books: Book[] = [];
-  private keyBook: string = '';
   bookName: string = '';
   booAuthor: string = '';
 
@@ -26,34 +35,29 @@ export class LibrarianBookComponent implements OnInit {
 
   viewComments: Comment[] = [];
   comments: Comment[] = [];
-  keyBookInCom: string = '';
-  keyCom: string = '';
-  bookComName: string = '';
-  bookComAuthor: string = '';
+  keyComment: string = '';
   addEditSwitch: boolean = true;
-
 
   userKey: string = JSON.parse(localStorage.getItem('authUser') as string)[0].key;
   userName: string = JSON.parse(localStorage.getItem('authUser') as string)[0].userName;
   userLastName: string = JSON.parse(localStorage.getItem('authUser') as string)[0].userLastName;
 
 
-  constructor(private _route: Router, private _service: LibService) {}
+  constructor(private _route: Router, private _service: LibService) {
+  }
 
   ngOnInit(): void {
     this._service.debugHash(this.thisUrl);
 
     this._service.getAllBooks().subscribe(item => {
       this.viewBooks = item;
-      this.books = this.viewBooks;
+      this.books = this.viewBooks.sort((a, b) => a.bookInStock - b.bookInStock);
     })
 
     this._service.getAllComments().subscribe(item => {
       this.viewComments = item;
       this.comments = this.viewComments;
     })
-
-
   }
 
   bookForm: FormGroup = new FormGroup({
@@ -83,14 +87,12 @@ export class LibrarianBookComponent implements OnInit {
       this.books = this.viewBooks;
     }
   }
-
   clickHref(href: string = '#') {
     return window.location.href = this.thisUrl + `${href}`
   }
 
 
   // ----Валидация----
-
   checkEmptinessInputValid(control: AbstractControl): { [key: string]: boolean } | null {
     if (control.value === null) {
       return {test: true}
@@ -98,7 +100,6 @@ export class LibrarianBookComponent implements OnInit {
       return null
     }
   }
-
   checkBooksValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const books = this.books.map(item => `${item.bookAuthor}${item.bookName}`.split(' ').join(''));
     let book = `${control.value.bookAuthor}${control.value.bookName}`;
@@ -116,10 +117,9 @@ export class LibrarianBookComponent implements OnInit {
 
   addBook() {
     this.bookForm.reset({
-      bookComment: 'BETA',
       bookCount: '1'
     });
-  }
+  } // Очищаю форму добавления
 
   submitBookAdd() {
     this.bookForm.patchValue({
@@ -131,14 +131,60 @@ export class LibrarianBookComponent implements OnInit {
     this._service.addBook(this.bookForm.value)
   }
 
+  submitBookEdit() {
+    this.bookForm.patchValue({
+      bookName: this.touchBookObj.bookName,
+      bookAuthor: this.touchBookObj.bookAuthor,
+    })
+    this._service.updateBook(this.touchBookObj.key as string, this.bookForm.value);
+  }
+
+  submitBookDel() {
+    this._service.deleteBook(this.touchBookObj.key as string)
+  }
 
 
-  univBook(book: Book) {
-    // console.log(book)
 
-    this.keyBook = book.key as string;
-    this.bookName = book.bookName;
-    this.booAuthor = book.bookAuthor;
+  // ----Работа с формой комментариев----
+
+  submitComentAdd() {
+    this.bookCommentForm.patchValue({
+      bookKey: this.touchBookObj.key
+    })
+
+    this._service.addComment(this.bookCommentForm.value)
+    this.clearCooment()
+  } // Добавляем комментарий
+
+  buttonDelete(comment: Comment) {
+    this._service.deleteComment(comment.key as string)
+  } // Удаляем комментарий
+
+  commentEdit(comment: Comment) {
+    this.addEditSwitch = false; // Переключаем  PopUp на редактирование.
+    this.keyComment = comment.key as string;
+    this.bookCommentForm.patchValue({
+      bookKey: comment.bookKey,
+      userComment: comment.userComment
+    })
+  } // Немного редактируем форму перед изменением
+
+  submitComentEdit() {
+
+    this._service.updateComment(this.keyComment, this.bookCommentForm.value)
+    this.clearCooment()
+    this.addEditSwitch = !this.addEditSwitch;
+
+  } // Изменяем комментарий
+
+  clearCooment() {
+    this.bookCommentForm.patchValue({
+      userComment: '',
+    })
+  } // Очищаем комментарий
+
+  touchBook(book: Book) {
+    this.touchBookObj = book;
 
     this.bookForm.patchValue({
       bookName: '',
@@ -147,70 +193,13 @@ export class LibrarianBookComponent implements OnInit {
       bookCount: book.bookCount,
       bookInStock: book.bookInStock,
     })
-  }
-
-  submitBookEdit() {
-    this.bookForm.patchValue({
-      bookName: this.bookName,
-      bookAuthor: this.booAuthor,
-    })
-    this._service.updateBook(this.keyBook, this.bookForm.value);
-  }
-
-  submitBookDel() {
-    this._service.deleteBook(this.keyBook)
-  }
+  } // Передаем данные по выбранной книги
 
 
-  // ----Работа с формой комментариев----
+  // ---- Работа с таблицей ----
 
-  dataComment(book: Book) {
-
-    this.bookComName = book.bookName;
-    this.bookComAuthor = book.bookAuthor;
-    this.keyBookInCom = book.key as string; // Проверка ключа книги приходящего и ключа открывающего
-
-    this.bookCommentForm.patchValue({
-      userComment: '', // Обнуляем строку при открытие PopUp.
-      bookKey: book.key // Указываем ключ книги, которую открыли.
-    })
-
-    this.addEditSwitch = true; // Явно указываем, что сначала идет добавление
-
-  }
-
-  submitComentAdd() {
-    this._service.addComment(this.bookCommentForm.value)
-    this.clearCooment()
-  }
-
-  buttonDelete(comment: Comment) {
-    this._service.deleteComment(comment.key as string)
-  }
-
-  commentEdit(comment: Comment) {
-    this.addEditSwitch = false; // Переключаем  PopUp на редактирование.
-
-    this.keyBookInCom = comment.bookKey as string; // Ключ книги в объект коммент
-    this.keyCom = comment.key as string; // Ключ коммент в объект коммент
-
-    this.bookCommentForm.patchValue({
-      userComment: comment.userComment
-    })
-
-  }
-
-  submitComentEdit() {
-    this._service.updateComment(this.keyCom, this.bookCommentForm.value)
-    this.clearCooment()
-    this.addEditSwitch = !this.addEditSwitch;
-
-  }
-
-  clearCooment() {
-    this.bookCommentForm.patchValue({
-      userComment: '',
-    })
+  checkCount = (item: Book): boolean => {
+    return item.bookInStock <= 0
   }
 
 

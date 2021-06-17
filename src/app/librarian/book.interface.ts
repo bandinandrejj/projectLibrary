@@ -1,17 +1,19 @@
 import {FormControl, Validators} from "@angular/forms";
 
-export interface Book { // Не копия ли это нижнего интерфейса, но только для одного элемента.
-  key: string | null,
+
+interface IObjectKeys {
+  [key: string]: object | string | boolean | number | null;
+}
+
+export interface Book extends IObjectKeys { // Не копия ли это нижнего интерфейса, но только для одного элемента.
   bookName: string,
   bookAuthor: string,
   bookGenre: string,
   bookCount: number,
   bookInStock: number,
-  bookComment: string,
 }
 
-export interface Comment {
-  key: string | null,
+export interface Comment extends IObjectKeys {
   userKey: string,
   userName: string,
   userLastName: string,
@@ -19,29 +21,18 @@ export interface Comment {
   bookKey: string,
 }
 
-export interface BorrowBook {
-  key: string | null,
-  librarian: {
-    libKey: string,
-    libName: string,
-    libLastName: string
-  },
-  student: {
-    studKey: string,
-    studName: string,
-    studLastName: string
-  },
-  book: {
-    bookKey: string,
-    bookName: string,
-    bookAuthor: string,
-  }
-  date: {
-    borrowBookDate: string,
-    returnBookDate: string,
-  },
+export interface BorrowBook extends IObjectKeys {
+  libKey: string,
+  libName: string,
+  libLastName: string
+  studKey: string,
+  studName: string,
+  studLastName: string
+  bookKey: string,
+  bookName: string,
+  bookAuthor: string,
+  borrowBookDate: string,
+  returnBookDate: string,
   returnBookCheck: boolean;
-
-
 }
 

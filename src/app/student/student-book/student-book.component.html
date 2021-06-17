@@ -9,35 +9,19 @@
 </div>
 
 <!--Таблица-->
-<div class="TableUser">
-  <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll">
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Название</th>
-        <th>Автор</th>
-        <th>Жанр</th>
-        <th>Кол-во</th>
-        <th>В наличии</th>
-        <th>Комментарии</th>
 
-      </tr>
-      <tr *cdkVirtualFor="let book of books; index as i" TableTouch [ngClass]="{nullInStockBaclground: book.bookInStock <= 0}">
-        <td>{{i+1}}</td>
-        <td>{{book.bookName}}</td>
-        <td>{{book.bookAuthor}}</td>
-        <td>{{book.bookGenre}}</td>
-        <td>{{book.bookCount}}</td>
-        <td>{{book.bookInStock <= 0 ? 'Нету в наличии' : 'Есть в наличии'}}</td>
+<app-table
+  [headings]="['Название', 'Автор', 'Жанр', 'Кол-во', 'В наличии', 'Комментарии']"
+  [objectKeys]="['bookName', 'bookAuthor', 'bookGenre', 'bookCount', 'bookInStock']"
+  [arrayObects]="books"
+  [trNgClassBoolean]="checkCount"
+  [popupComment]="true"
+  (object)="touchBook($event)"
+>
+</app-table>
 
-        <td (click)="clickHref('#popupComment'); dataComment(book)">
-          <a class="buttonOpen">Открыть</a>
-        </td>
-      </tr>
 
-    </table>
-  </cdk-virtual-scroll-viewport>
-</div>
+
 
 
 <!--Попап Комментариев (Добавление)-->
@@ -49,13 +33,13 @@
 
       <div class="divLeftPopComment">
 
-        <div class="ComName">{{bookComName}}</div>
-        <div class="ComAuthor">({{bookComAuthor}})</div>
+        <div class="ComName">{{touchBookObj.bookName}}</div>
+        <div class="ComAuthor">({{touchBookObj.bookAuthor}})</div>
 
         <cdk-virtual-scroll-viewport itemSize="10" class="virtual-scroll-comment">
 
           <div *cdkVirtualFor="let comment of comments">
-            <div *ngIf="comment.bookKey === keyBookInCom" class="container">
+            <div *ngIf="comment.bookKey === touchBookObj.key" class="container">
               <div class="piccont">
                 <div class="pic">
                   <div class="picsign">
