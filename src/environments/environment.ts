@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  // url : 'https://libraryproject-fd8d6-default-rtdb.firebaseio.com/students.json',
   firebaseConfig : {
     apiKey: "AIzaSyDlFOt0w7PqyJd4pjiNGM-naMPo3jxHvlg",
     authDomain: "libraryproject-fd8d6.firebaseapp.com",

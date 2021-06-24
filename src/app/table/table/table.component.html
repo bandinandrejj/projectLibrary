@@ -1,0 +1,61 @@
+<div class="TableUser">
+
+  <table>
+    <tr>
+      <th>№</th>
+
+      <th *ngFor="let heading of headings" (click)="sortSwitch(heading)">
+        <div class="time-segment">
+          <span>{{heading.value}}</span>
+          <span class="arrow-btn" *ngIf="(heading.useSort === true) && switchSort">🡫</span>
+          <span class="arrow-btn" *ngIf="(heading.useSort === true) && !switchSort">🡩</span>
+        </div>
+      </th>
+    </tr>
+    <tr *ngFor="let object of arrayObects | paginate: { itemsPerPage: 5, currentPage: p } let i = index" TableTouch
+        [ngClass]="{redBackground: checkInStockBook(object) || checkBorrowBookDate(object), greenBackground: checkBorrowBookSwitch(object)}" >
+
+<!--      [ngClass]="{nullInStockBaclground: }"-->
+
+     <td>{{i + 1}}</td>
+      <td *ngFor="let key of objectKeys">
+        <ng-container *ngIf="userFlag === 'librarian'">{{object[key].meaningLibrarian}}</ng-container>
+        <ng-container *ngIf="userFlag === 'student'">{{object[key].meaningOther}}</ng-container>
+      </td>
+
+      <td *ngIf="popupComment" class="btn" (click)="sendObject(object); clickHref('#popupComment')">
+        <a class="buttonOpen">Открыть</a>
+      </td>
+
+      <td *ngIf="popupOpen" class="btn" (click)="sendObject(object); clickHref('#popupOpen')">
+        <a class="buttonOpen">Открыть</a>
+      </td>
+
+      <td *ngIf="popupEdit" class="btn" (click)="sendObject(object); clickHref('#popupEdit')">
+        <a class="buttonEdit">Редактирвоать</a>
+      </td>
+
+      <td *ngIf="popupDelete" class="btn" (click)="sendObject(object); clickHref('#popupDelete')">
+        <a class="buttonDel">Удалить</a>
+      </td>
+
+      <td *ngIf="buttonSwitch" >
+        <label class="switch">
+          <input type="checkbox" [checked]="object.returnBookCheck.value"
+                 (click)="sendObjectSwitch(object)"
+                 [disabled]="checkCount(object)">
+          <span class="slider round"></span>
+        </label>
+      </td>
+
+    </tr>
+
+  </table>
+
+  <pagination-controls (pageChange)="p = $event"
+                       previousLabel="Назад"
+                       nextLabel="Вперед"
+                       [autoHide]=true>
+  </pagination-controls>
+
+</div>
