@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <h3>Популярные книги среди читателей</h3>
+  <ngx-charts-bar-horizontal
+    [results]="books"
+    [legend]="true"
+    [view]="[800, 350]"
+    [xAxis]="true"
+    [yAxis]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="'Популярность (%)'"
+    [yAxisLabel]="'Книги'"
+    [legendTitle]="'Легенда'"
+  >
+  </ngx-charts-bar-horizontal>
+</div>
+
+

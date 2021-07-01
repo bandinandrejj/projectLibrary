@@ -10,22 +10,32 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import { UserStudComponent } from './user-stud/user-stud.component';
 import {NgxMaskModule} from "ngx-mask";
 import {UserBorrowbookComponent} from "./user-borrowbook/borrowbook.component";
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { UserContentComponent } from './user-content/user-content.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PopupBorrowbookComponent } from './user-popup/popup-borrowbook/popup-borrowbook.component';
+import { PopupBookComponent } from './user-popup/popup-book/popup-book.component';
+import { PopupStudComponent } from './user-popup/popup-stud/popup-stud.component';
 
 
 
 
 @NgModule({
-  declarations: [UserMainComponent, UserBookComponent, UserStudComponent, UserBorrowbookComponent],
+  declarations: [UserMainComponent, UserBookComponent, UserStudComponent, UserBorrowbookComponent, UserMenuComponent, UserContentComponent, UserDashboardComponent, PopupBorrowbookComponent, PopupBookComponent, PopupStudComponent],
   exports: [UserMainComponent],
-  imports: [
-    CommonModule,
-    DirectiveModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxMaskModule.forRoot(),
-    TableModule,
-    ScrollingModule,
-  ]
+    imports: [
+        CommonModule,
+      BrowserAnimationsModule,
+        DirectiveModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxMaskModule.forRoot(),
+        TableModule,
+        ScrollingModule,
+        NgxChartsModule,
+    ]
 })
 export class UserModule { }

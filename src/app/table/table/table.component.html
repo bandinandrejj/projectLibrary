@@ -2,13 +2,13 @@
 
   <table>
     <tr>
-      <th>№</th>
+      <th class="thCenter">№</th>
 
-      <th *ngFor="let heading of headings" (click)="sortSwitch(heading)">
+      <th *ngFor="let heading of headings" (click)="sortSwitch(heading)" >
         <div class="time-segment">
-          <span>{{heading.value}}</span>
-          <span class="arrow-btn" *ngIf="(heading.useSort === true) && switchSort">🡫</span>
-          <span class="arrow-btn" *ngIf="(heading.useSort === true) && !switchSort">🡩</span>
+          <div>{{heading.value}}</div>
+          <div class="arrow-btn" *ngIf="(heading.useSort === true) && switchSort">🡫</div>
+          <div class="arrow-btn" *ngIf="(heading.useSort === true) && !switchSort">🡩</div>
         </div>
       </th>
     </tr>

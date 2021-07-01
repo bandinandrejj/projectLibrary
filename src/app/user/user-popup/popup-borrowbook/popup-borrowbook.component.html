@@ -1,0 +1,127 @@
+<div id="popupAddBorrowBook" class="overlay">
+  <div class="popup">
+    <a class="close" (click)="clickHref()">&times;</a>
+    <div class="content">
+      <form class="decor" novalidate [formGroup]="borrowBookForm">
+        <div class="form-left-decoration"></div>
+        <div class="form-right-decoration"></div>
+        <div class="form-inner">
+          <h3>Добавить бронь книги</h3>
+
+          <div formGroupName="studKey">
+            <label>Студент: </label>
+            <select formControlName="value" class="selInput">
+              <option *ngFor="let student of students" [value]="student.key">
+                <p>{{student.userName.meaningLibrarian}} {{student.userLastName.meaningLibrarian}}</p>
+              </option>
+            </select>
+          </div>
+
+          <div formGroupName="bookKey">
+            <label>Книга: </label>
+            <select formControlName="value" class="selInput">
+              <ng-container *ngFor="let book of books">
+                <option *ngIf="book.bookInStock.value > 0" [value]="book.key">
+                  <p>{{book.bookName.meaningOther}} ({{book.bookAuthor.meaningOther}})</p>
+                </option>
+              </ng-container>
+            </select>
+          </div>
+
+          <div formGroupName="borrowBookDate">
+            <label>Дата взятие книги: </label>
+            <input formControlName="value" type="date">
+          </div>
+
+          <div formGroupName="returnBookDate">
+            <label>Дата возврата книги: </label>
+            <input formControlName="value" type="date">
+          </div>
+
+          <button class="mgTop" (click)="addBorrowBook()" [disabled]="borrowBookForm.invalid"
+                  [ngClass]="{formButtonInval: borrowBookForm.invalid, formButtonVal: borrowBookForm.valid}">Добавить
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="checkUrl">
+
+  <div id="popupEdit" class="overlay">
+    <div class="popup">
+      <a class="close" (click)="clickHref()">&times;</a>
+      <div class="content">
+        <form class="decor" novalidate [formGroup]="borrowBookForm" (ngSubmit)="editBorrowBook()">
+
+          <div class="form-left-decoration"></div>
+          <div class="form-right-decoration"></div>
+          <div class="form-inner">
+
+            <h3>Изменить бронь книги</h3>
+
+
+            <input readonly type="text" [value]="borrowBookForm.value['studName']['meaningOther']
+            + ' ' + borrowBookForm.value['studLastName']['meaningOther']">
+
+            <textarea readonly type="text" [value]="borrowBookForm.value['bookName']['meaningOther']
+            + '\n(' + borrowBookForm.value['bookAuthor']['meaningOther']  + ')'"></textarea>
+
+            <div formGroupName="borrowBookDate">
+              <label>Взял книгу:</label>
+              <input formControlName="value" type="date">
+            </div>
+
+            <div formGroupName="returnBookDate">
+              <label>Должен вернуть книгу:</label>
+              <input formControlName="value" type="date">
+            </div>
+
+            <button
+              [disabled]="borrowBookForm.invalid"
+              [ngClass]="{formButtonInval: borrowBookForm.invalid, formButtonVal: borrowBookForm.valid}">Изменить
+            </button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="popupDelete" class="overlay">
+    <div class="popup">
+      <a class="close" (click)="clickHref()">&times;</a>
+      <div class="content">
+        <form class="decor" novalidate [formGroup]="borrowBookForm" (ngSubmit)="deleteBorrowBook()">
+          <div class="form-left-decoration"></div>
+          <div class="form-right-decoration"></div>
+          <div class="form-inner">
+
+            <h3>Удалить бронь книги</h3>
+
+            <input readonly type="text" [value]="borrowBookForm.value['studName']['meaningOther']
+            + ' ' + borrowBookForm.value['studLastName']['meaningOther']">
+
+            <textarea readonly [value]="borrowBookForm.value['bookName']['meaningOther']
+            + '\n(' + borrowBookForm.value['bookAuthor']['meaningOther']  + ')'"></textarea>
+
+            <label>Взял книгу:</label>
+            <input readonly type="date"
+                   [value]="borrowBookForm.value['borrowBookDate']['value']">
+
+            <label>Должен вернуть:</label>
+            <input readonly type="date"
+                   [value]="borrowBookForm.value['returnBookDate']['value']">
+
+            <input readonly type="text"
+                   [value]="borrowBookForm.value['returnBookCheck']['meaningOther']">
+            <button class="del">Удалить</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

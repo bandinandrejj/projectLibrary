@@ -5,9 +5,10 @@ import {AuthModule} from "./authorization/auth/auth.module";
 import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
-import {RoutingModule} from "./routing/routing/routing.module";
-import { UserMainComponent } from './user/user-main/user-main.component';
+
 import {UserModule} from "./user/user.module";
+import {PageNotFoundModule} from "./page-not-found/page-not-found.module";
+import {RoutingModule} from "./routing/routing/routing.module";
 
 
 @NgModule({
@@ -16,12 +17,10 @@ import {UserModule} from "./user/user.module";
   ],
   imports: [
     BrowserModule,
-
     AuthModule,
     UserModule,
+    PageNotFoundModule,
     RoutingModule,
-
-
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],

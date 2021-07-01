@@ -24,19 +24,13 @@
 /*  color: white;*/
 /*  font-size: 14px;*/
 /*}*/
-/*------Оболочка комента--------*/
-/*-----*/
+/*Toggle Switch*/
+
+
+
 table {
   width: 100%;
   border-collapse: collapse;
-}
-.virtual-scroll {
-  height: 350px;
-  width: 100%;
-}
-.virtual-scroll-comment {
-  height: 390px;
-  width: 96%;
 }
 td {
   padding: 10px;
@@ -60,7 +54,6 @@ tr {
   }
   >td {
     border-left: solid 1px;
-    width: 100px;
     &:first-child {
       border-left: 0;
     }
@@ -157,23 +150,9 @@ tr {
     transform: scale(.95);
   }
 }
-.buttonOpen {
-  background-color: #85C256FF;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 5px 10px;
-  font-family: 'Inter', sans-serif;
-  color: black;
-  font-size: 12px;
-  font-weight: 700;
-  &:active {
-    transform: scale(.95);
-  }
-}
 .overlay {
-  position: fixed;
-  top: 0;
+   position: fixed;
+  top: -4%;
   bottom: 0;
   left: 0;
   right: 0;
@@ -189,9 +168,7 @@ tr {
 .popup {
   margin: 70px auto;
   padding: 20px;
-  background: #fff;
   border-radius: 5px;
-  width: 30%;
   position: relative;
   width: 35%;
   background-color: #9b9b9b;
@@ -202,8 +179,8 @@ tr {
   }
   .close {
     position: absolute;
-    top: 25px;
-    right: 35px;
+    top: 20px;
+    right: 30px;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
@@ -318,25 +295,30 @@ tr {
 }
 .form-inner {
   padding: 30px 90px 30px 60px;
+  width: 260px;
   input {
     display: block;
-    width: 100%;
+    width: 250px;
+    height: 50px;
     padding: 0 20px;
     margin-bottom: 10px;
     background: #E9EFF6;
     line-height: 40px;
     font-family: 'Roboto', sans-serif;
   }
+
   textarea {
     display: block;
-    width: 100%;
-    padding: 0 20px;
+    width: 250px;
+    height: 50px;
+    padding: 12px 21px;
     margin-bottom: 10px;
     background: #E9EFF6;
-    line-height: 40px;
+    line-height: 25px;
     font-family: 'Roboto', sans-serif;
     resize: none;
   }
+
   h3 {
     margin-top: 0;
     font-family: 'Roboto', sans-serif;
@@ -345,15 +327,17 @@ tr {
     color: #707981;
   }
 }
+.virtual-scroll {
+  height: 337px;
+  width: 100%;
+}
 .btnNo {
   opacity: 0.5;
 }
 .centerP {
   text-align: center;
-  margin-left: 36px;
 }
 button {
-  margin-bottom: 5px;
   border-radius: 20px;
   border: 1px solid #f69a73;
   background: #f69a73;
@@ -407,132 +391,96 @@ input[readonly] {
   background-color: rgba(239, 239, 239, 0.3);
   border-color: rgba(118, 118, 118, 0.3);
 }
-.contentComment {
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.divLeftPopComment {
-  border-radius: 10px;
-  height: 100%;
-  width: 530px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-.ComName {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 24px;
-  color: #333333;
-  margin-top: 20px;
-}
-.ComAuthor {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-.divRightPopComment {
-  border-radius: 10px;
-  height: 200px;
-  width: 300px;
-  background-color: white;
-}
-div.popup {
-  width: 35%;
-}
-div.popupComm {
-  width: 850px;
-}
-tr.trBorder {
-  >td {
-    border-left: none;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 }
-.textareaCom {
-  height: 100px;
-  width: 250px;
-  resize: none;
-}
-.container {
-  display: flex;
-  align-items: center;
-  width: 450px;
-  border: 2px solid #ccc;
-  background-color: #eee;
-  border-radius: 5px;
-  padding: 16px;
-  margin: 16px 0;
-  &::after {
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bb4e4e;
+  -webkit-transition: .4s;
+  transition: .4s;
+  &:before {
+    position: absolute;
     content: "";
-    clear: both;
-    display: table;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
   }
-  span {
-    font-size: 20px;
-    margin-right: 15px;
+}
+input {
+  &:checked {
+    .slider {
+      background-color: #257cd4;
+      &:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+    }
   }
 }
-.piccont {
-  display: flex;
-  margin-right: 20px;
+.slider.round {
+  border-radius: 34px;
+  &:before {
+    border-radius: 50%;
+  }
 }
-.pic {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #5E81F4;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  color: white;
-  margin-right: 0;
-}
-.userComName {
+.selInput {
+  width: 294px;
+  height: 50px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  background: #E9EFF6;
+  line-height: 40px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
 }
-.userComDisc {
-  width: 370px;
-  text-align: justify;
-  word-wrap: break-word;
+.selInput.ng-invalid {
+  border: 2px solid red;
+  border-radius: 4px;
 }
-.userComDiscCenter {
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  font-weight: bold;
-  margin: 10px auto;
+.selInput.ng-valid {
+  border: 2px solid green;
+  border-radius: 4px;
+}
+.selInput.ng-untouched {
+  border: 2px solid #282828;
+  border-radius: 4px;
+}
+.selInput.ng-pristine {
+  border: 2px solid #282828;
+  border-radius: 4px;
+}
+.returnBaclground {
+  >td {
+    background-color: rgba(6, 216, 95, 0.5);
+  }
+}
+.NOreturnBaclground {
+  >td {
+    background-color: rgba(245, 86, 86, 0.5);
+  }
 }
 label {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
 }
-.formCom {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-.btnComm {
-  display: flex;
-  justify-content: flex-end;
-}
-.btnCommSize {
-  height: 50px;
-  width: 100px;
-}
-.btnCommRed {
-  background-color: darkred;
-}
-.btnCommYel {
-  background-color: #ffd800;
-}
-.nullInStockBaclground {
-  > td {
-    background-color: rgba(245, 86, 86, 0.5);
-  }
+.mgTop {
+  margin-top: 10px;
 }

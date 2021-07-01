@@ -20,7 +20,6 @@ export class LibGuard implements CanActivate {
 
     const authUser = JSON.parse(localStorage.getItem('authUser') as string);
     return (authUser[0].key !== '' && authUser[0].userFlag['value'] === 'librarian');
-
   }
 
 }

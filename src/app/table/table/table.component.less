@@ -40,9 +40,22 @@ td {
   }
 }
 th {
-  padding: 10px;
-  width: 100px;
+  padding: 0px 8px;
+  //width: 100%;
+  vertical-align: bottom;
+  //white-space: nowrap;
 }
+
+.thCenter {
+  vertical-align: middle;
+}
+
+.noWrap {
+  white-space: nowrap;
+}
+
+
+
 tr {
   >th {
     border-bottom: solid 1px;
@@ -503,9 +516,10 @@ label {
 
 .time-segment  {
   display: flex;
-  flex-direction: column;
-  //justify-content: center;
-  //align-items: stretch;
+  /* flex-direction: row; */
+  height: 75px;
+  align-items: center;
+  justify-content: center;
 
 }
 

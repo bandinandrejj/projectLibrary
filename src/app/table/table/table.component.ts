@@ -94,10 +94,17 @@ export class TableComponent implements OnInit {
 
 
   sortSwitch(headings: HeadingInterface) {
-    this.switchSort = !this.switchSort;
-    !this.switchSort ?
-      this.arrayObects = this.arrayObects.sort((a: any, b: any) => a[headings.keySort as string]['value'] < b[headings.keySort as string]['value'] ? 1 : -1) :
-      this.arrayObects = this.arrayObects.sort((a: any, b: any) => a[headings.keySort as string]['value'] > b[headings.keySort as string]['value'] ? 1 : -1);
+
+    if (headings.keySort === undefined) {
+      this.switchSort = this.arrayObects
+    } else {
+      this.switchSort = !this.switchSort;
+      this.switchSort ?
+        this.arrayObects = this.arrayObects.sort((a: any, b: any) => a[headings.keySort as string]['value'] < b[headings.keySort as string]['value'] ? 1 : -1) :
+        this.arrayObects = this.arrayObects.sort((a: any, b: any) => a[headings.keySort as string]['value'] > b[headings.keySort as string]['value'] ? 1 : -1);
+    }
+
+
   }
 
 }

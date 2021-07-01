@@ -1,0 +1,30 @@
+<div class="left-block">
+  <div class="logo">
+    <div class="piccont">
+      <div class="pic">
+        <div class="picsign">
+          {{userInfo.userName.meaningLibrarian[0]}}
+        </div>
+      </div>
+    </div>
+    <div class="logosign">
+      {{userInfo.userName.meaningLibrarian}} {{userInfo.userLastName.meaningLibrarian}}
+    </div>
+  </div>
+  <div *ngIf="flagUser === 'librarian'" class="join" (click)="clickHref('#popupAddBorrowBook')">
+    <div class="joinsign">Забронировать книгу</div>
+  </div>
+  <div class="navleft">
+    <ul>
+      <li *ngFor="let item of items">
+        <div class="navleftElement" headingTouch (click)="btnNavigate(item.route); sendTitle(item.title); logout(item.logout)">
+          <img src="assets/icon/{{dynamicImg(item.img, item.route)}}.svg">
+          {{item.title}}
+          <div *ngIf="dynamicSelec(item.route, item.title)" class="selection"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
