@@ -37,7 +37,7 @@ export class PopupStudComponent implements OnInit {
     }),
 
     userPass: new FormGroup({
-      "value": new FormControl(""),
+      "value": new FormControl("", Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=(.*[a-zA-Z]){4}).{6,30}$')),
       "type": new FormControl(""),
       "meaningLibrarian": new FormControl(""),
     }),
