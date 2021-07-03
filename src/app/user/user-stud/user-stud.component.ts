@@ -20,6 +20,9 @@ export class UserStudComponent implements OnInit {
   thisUrl: string = this._route.url;
   touchStudentObj: User;
 
+  stateAdd: boolean;
+  stateEditOrDelete: boolean;
+
   ngOnInit(): void {
     this._service.getAllStuds().subscribe(item => {
       this.viewStudents = item;

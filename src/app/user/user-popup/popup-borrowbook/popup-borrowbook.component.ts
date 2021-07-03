@@ -2,7 +2,7 @@ import {
   Component,
   DoCheck,
   Input,
-  OnInit, Output, EventEmitter
+  OnInit, Output, EventEmitter, ChangeDetectorRef
 } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import * as moment from "moment";
@@ -25,7 +25,7 @@ export class PopupBorrowbookComponent implements OnInit, DoCheck {
     private _borrowBookService: BorrowbookService,
     private _bookService: BookAndOtherService,
     private _userService: UserService,
-  ) {
+) {
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class PopupBorrowbookComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    this.checkUrl = this._route.url.includes('borrowbook')
+    this.checkUrl = this._route.url.includes('borrowbook');
   }
 
 
@@ -176,34 +176,36 @@ export class PopupBorrowbookComponent implements OnInit, DoCheck {
 
 // ---- Функционал для попапом ----
 
-  @Input() set touchBorrowBook(borrowBook: BorrowBook) {
-    if (borrowBook !== undefined) {
-      this.touchBorrowBookObj = borrowBook;
+  @Input() set touchBorrowBook(obj: { value: BorrowBook, state: boolean }) {
+    if (obj.value !== undefined && obj.state) {
+      this.touchBorrowBookObj = obj.value;
       this.borrowBookForm.patchValue({
         // --- lib ---
         libKey: {value: this.userID},
         libName: {value: this.userName},
         libLastName: {value: this.userLastName},
         // --- stud ---
-        studKey: {value: borrowBook.studKey.value},
-        studName: {value: borrowBook.studName.value},
-        studLastName: {value: borrowBook.studLastName.value},
+        studKey: {value: obj.value.studKey.value},
+        studName: {value: obj.value.studName.value},
+        studLastName: {value: obj.value.studLastName.value},
         // --- book ---
-        bookKey: {value: borrowBook.bookKey.value},
-        bookName: {value: borrowBook.bookName.value},
-        bookAuthor: {value: borrowBook.bookAuthor.value},
+        bookKey: {value: obj.value.bookKey.value},
+        bookName: {value: obj.value.bookName.value},
+        bookAuthor: {value: obj.value.bookAuthor.value},
         // --- date ---
-        borrowBookDate: {value: borrowBook.borrowBookDate.value},
-        returnBookDate: {value: borrowBook.returnBookDate.value},
+        borrowBookDate: {value: obj.value.borrowBookDate.value},
+        returnBookDate: {value: obj.value.returnBookDate.value},
         // --- switch ---
-        returnBookCheck: {value: borrowBook.returnBookCheck.value},
+        returnBookCheck: {value: obj.value.returnBookCheck.value},
       });
       this.bookInForm();
-      this.stateClickEditOrDelete.emit(false);
+      this.stateBorrowBookObj.emit(false)
     }
   }
 
-  @Output() stateClickEditOrDelete = new EventEmitter<boolean>();
+  @Output() stateBorrowBookObj = new EventEmitter<boolean>();
+
+
 
 
   @Output() stateClickAdd = new EventEmitter<boolean>();

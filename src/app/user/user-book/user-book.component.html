@@ -1,7 +1,7 @@
 <!--Добавление и поиск-->
 <div class="wrapper">
 
-  <a *ngIf="userFlag === 'librarian'" class="join" href="{{thisUrl}}#popupAdd">
+  <a *ngIf="userFlag === 'librarian'" class="join" (click)="addBookState = true" href="{{thisUrl}}#popupAdd">
     <a class="joinsign">Добавить книгу</a>
   </a>
 
@@ -20,7 +20,7 @@
            [popupComment]="true"
            [popupEdit]="true"
            [popupDelete]="true"
-           (object)="touchBookObj = $event"
+           (object)="touchBookObj = $event; editOrDeleteBookState = true"
 ></app-table>
 
 <!-- Таблица для студента (читателя) -->
@@ -35,7 +35,15 @@
 <!--Попапы в отдельном компоненте-->
 <app-popup-book
 [books]="books"
-[touchBook]="touchBookObj"
+
+[touchBook]="{value: touchBookObj, state: editOrDeleteBookState}"
+(stateEditOrDelete)="editOrDeleteBookState = $event"
+
+[addBookState]="addBookState"
+(stateAdd)="addBookState = $event"
+
+
+
 ></app-popup-book>
 
 

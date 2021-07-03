@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {BookAndOtherService} from "../../services/book-and-other.service";
 import {Book, BorrowBook} from "../../interfaces/book-and-other.interface";
@@ -16,7 +16,8 @@ export class UserBorrowbookComponent implements OnInit {
   constructor(private _route: Router,
               private _bookService: BookAndOtherService,
               private _userService: UserService,
-              private _borrowBookService: BorrowbookService
+              private _borrowBookService: BorrowbookService,
+              private _cd: ChangeDetectorRef,
   ) {
   }
 
@@ -39,6 +40,8 @@ export class UserBorrowbookComponent implements OnInit {
   viewBorrowBooks: BorrowBook[] = [];
 
   touchBorrowBookObj: BorrowBook;
+  stateBorrowBookObj: boolean;
+
   touchSwitchObj: BorrowBook;
 
   addBorrowBook: boolean;
@@ -57,6 +60,9 @@ export class UserBorrowbookComponent implements OnInit {
   }
 
 
+ // ngDoCheck() {
+ //   this._cd.detectChanges();
+ // }
 
 
   headingsLib: HeadingInterface[] = [ // Заголовки для таблицы

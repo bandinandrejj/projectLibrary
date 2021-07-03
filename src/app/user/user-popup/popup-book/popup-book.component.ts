@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {BookAndOtherService} from "../../../services/book-and-other.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,7 +9,7 @@ import {Book, IComment} from "../../../interfaces/book-and-other.interface";
   templateUrl: './popup-book.component.html',
   styleUrls: ['./popup-book.component.less']
 })
-export class PopupBookComponent implements OnInit {
+export class PopupBookComponent implements OnInit, DoCheck {
 
   constructor(private _route: Router, private _service: BookAndOtherService) {
   }
@@ -20,6 +20,16 @@ export class PopupBookComponent implements OnInit {
       this.viewComments = item;
       this.comments = this.viewComments;
     })
+  }
+
+  ngDoCheck() {
+   if (this.bookForm.controls['bookCount']['value'].value < this.bookForm.controls['bookInStock']['value'].value) {
+     this.bookForm.patchValue({
+       bookInStock: {
+         value: this.bookForm.controls['bookCount']['value'].value
+       }
+     })
+   }
   }
 
 
@@ -111,7 +121,6 @@ export class PopupBookComponent implements OnInit {
   }
 
 
-
 // ---- Работа с формой ----
   submitBookAdd() {
     this.bookForm.patchValue({
@@ -144,7 +153,6 @@ export class PopupBookComponent implements OnInit {
     this._service.deleteBook(this.touchBookObj?.key as string);
     this.clickHref();
   }
-
 
 
 // ---- Работа с комментариями ----
@@ -183,30 +191,44 @@ export class PopupBookComponent implements OnInit {
   }
 
 
-
   // ---- Передача и изменеие данных ----
-  @Input() set touchBook(book: Book) {
-    if (book !== undefined) {
-      this.touchBookObj = book;
-      this.bookName = book.bookName.value;
+
+  @Output() stateAdd = new EventEmitter<boolean>()
+  @Input() set addBookState(state: boolean) {
+    if (state) {
+      this.bookForm.reset({
+        bookCount: {
+          value: 1
+        }
+      });
+      this.stateAdd.emit(false);
+    }
+  }
+
+  @Output() stateEditOrDelete = new EventEmitter<boolean>()
+  @Input() set touchBook(obj: {value: Book, state: boolean}) {
+    if (obj.value !== undefined && obj.state) {
+      this.touchBookObj = obj.value;
+      this.bookName = obj.value.bookName.value;
       this.bookForm.patchValue({
         bookName: {
           value: 'X'
         },
         bookAuthor: {
-          value: book.bookAuthor.value
+          value: obj.value.bookAuthor.value
         },
         bookGenre: {
-          value: book.bookGenre.value
+          value: obj.value.bookGenre.value
         },
         bookCount: {
-          value: book.bookCount.value
+          value: obj.value.bookCount.value
         },
         bookInStock: {
-          value: book.bookInStock.value
+          value: obj.value.bookInStock.value
         }
       });
       this.bookInForm();
+      this.stateEditOrDelete.emit(false);
     }
   }
 

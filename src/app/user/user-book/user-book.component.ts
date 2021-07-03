@@ -23,6 +23,9 @@ export class UserBookComponent implements OnInit {
   books: Book[] = [];
   touchBookObj: Book;
 
+  addBookState: boolean;
+  editOrDeleteBookState: boolean;
+
 
   constructor(private _route: Router, private _service: BookAndOtherService) {
   }

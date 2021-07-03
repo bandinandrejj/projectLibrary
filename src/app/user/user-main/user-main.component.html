@@ -10,13 +10,12 @@
 
 
 
-    <ng-container *ngIf="userFlag === 'librarian'">
-      <app-popup-borrowbook
+      <app-popup-borrowbook *ngIf="userFlag === 'librarian'"
         [checkClickAdd]="addBorrowBook"
-
+        (stateClickAdd)="addBorrowBook = $event"
       ></app-popup-borrowbook>
-    </ng-container>
-<!--    (stateClickAdd)="addBorrowBook = $event"-->
+
+
 
   </div>
 </div>

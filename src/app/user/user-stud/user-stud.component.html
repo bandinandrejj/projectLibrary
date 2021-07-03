@@ -1,12 +1,12 @@
 <div class="wrapper">
 
-  <a class="join" href="{{thisUrl}}#popupAdd">
+  <a class="join" href="{{thisUrl}}#popupAdd" (click)="stateAdd = true">
     <a class="joinsign">Добавить читателя</a>
   </a>
 
   <div class="search">
     <form action="" class="sline">
-            <input [(ngModel)]="str" (input)="findUser(str)" name="findUser" type="text" placeholder="Поиск">
+      <input [(ngModel)]="str" (input)="findUser(str)" name="findUser" type="text" placeholder="Поиск">
     </form>
   </div>
 
@@ -21,13 +21,17 @@
   [popupOpen]="true"
   [popupEdit]="true"
   [popupDelete]="true"
-  (object)="touchStudentObj = $event"
+  (object)="touchStudentObj = $event; stateEditOrDelete = true"
 >
 </app-table>
 
 
-
 <app-popup-stud
-  [touchStudent]="touchStudentObj"
   [students]="viewStudents"
+
+  [addUser]="stateAdd"
+  (stateAdd)="stateAdd = $event"
+
+  [touchStudent]="{value: touchStudentObj, state: stateEditOrDelete}"
+  (stateEditOrDelete)="stateEditOrDelete = $event"
 ></app-popup-stud>

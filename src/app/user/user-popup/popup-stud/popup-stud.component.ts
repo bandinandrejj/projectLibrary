@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../interfaces/user.interface";
@@ -98,20 +98,6 @@ export class PopupStudComponent implements OnInit {
 
   // ----Работа с формой----
 
-  addUser() {
-    this.userForm.reset({
-      userLogin: {
-        value: 'stud',
-      },
-      userPhone: {
-        value: '+7',
-      },
-      userFlag: {
-        value: 'student',
-      },
-    });
-  }
-
   submitUserAdd() {
     this.userForm.patchValue({
       userName: this.userForm.controls['userName']['value'].value.trim(),
@@ -152,48 +138,56 @@ export class PopupStudComponent implements OnInit {
 
   // ----Работа с формой----
 
-  // addUser() {
-  //   this.userForm.reset({
-  //     userLogin: {
-  //       value: 'stud',
-  //     },
-  //     userPhone: {
-  //       value: '+7',
-  //     },
-  //     userFlag: {
-  //       value: 'student',
-  //     },
-  //   });
-  // }
+  @Input() set addUser(stateAdd: Boolean) {
+    if (stateAdd) {
+      this.userForm.reset({
+        userLogin: {
+          value: 'stud',
+        },
+        userPhone: {
+          value: '+7',
+        },
+        userFlag: {
+          value: 'student',
+        },
+      });
+      this.stateAdd.emit(false)
+    }
+  }
+  @Output() stateAdd = new EventEmitter<boolean>();
 
 
-  @Input() set touchStudent(stud: User) {
-    if (stud !== undefined) {
-      this.touchStudentObj = stud;
-      this.fullNameUser = `${stud.userName['value']} ${stud.userLastName['value']}`;
+  @Output() stateEditOrDelete = new EventEmitter<boolean>();
+  @Input() set touchStudent(obj: { value: User, state: boolean}) {
+    if (obj.value !== undefined && obj.state) {
+      this.touchStudentObj = obj.value;
+      this.fullNameUser = `${obj.value.userName['value']} ${obj.value.userLastName['value']}`;
       this.userForm.patchValue({
         userLogin: {
           value: 'stud0000'
         },
         userPass: {
-          value: stud.userPass['value']
+          value: obj.value.userPass['value']
         },
         userName: {
-          value: stud.userName['value']
+          value: obj.value.userName['value']
         },
         userLastName: {
-          value: stud.userLastName['value']
+          value: obj.value.userLastName['value']
         },
         userPhone: {
-          value: stud.userPhone['value']
+          value: obj.value.userPhone['value']
         },
         userAdress: {
-          value: stud.userAdress['value']
+          value: obj.value.userAdress['value']
         },
       });
       this.userInForm();
+      this.stateEditOrDelete.emit(false)
     }
   }
+
+
 
   placeholderForm(element: string) {
     this.userForm.controls[element].patchValue({

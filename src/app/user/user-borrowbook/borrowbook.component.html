@@ -1,8 +1,6 @@
 <!--Добавление и поиск-->
 
 
-
-
 <div class="wrapper">
   <a *ngIf="userFlag === 'librarian'" class="join" (click)="addBorrowBook = true" href="{{thisUrl}}#popupAddBorrowBook">
     <a class="joinsign">Арендовать книгу</a>
@@ -24,7 +22,7 @@
            [popupEdit]="true"
            [popupDelete]="true"
            [buttonSwitch]="true"
-           (object)="touchBorrowBookObj = $event"
+           (object)="touchBorrowBookObj = $event; stateBorrowBookObj = true"
            [extraObects]="books"
            (objectSwitch)="touchSwitchObj = $event"
 >
@@ -38,18 +36,17 @@
 </app-table>
 
 
-<ng-container *ngIf="userFlag === 'librarian'">
+<app-popup-borrowbook *ngIf="userFlag === 'librarian'"
+                      [touchSwitch]="touchSwitchObj"
 
-  <app-popup-borrowbook
-    [touchSwitch]="touchSwitchObj"
+                      [touchBorrowBook]="{value: touchBorrowBookObj, state: stateBorrowBookObj}"
+                      (stateBorrowBookObj)="stateBorrowBookObj = $event"
 
-    [touchBorrowBook]="touchBorrowBookObj"
-
-    [checkClickAdd]="addBorrowBook"
-    (stateClickAdd)="addBorrowBook = $event"
-  >
-  </app-popup-borrowbook>
+                      [checkClickAdd]="addBorrowBook"
+                      (stateClickAdd)="addBorrowBook = $event"
+>
+</app-popup-borrowbook>
 
 
-</ng-container>
+
 

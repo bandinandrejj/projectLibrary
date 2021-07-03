@@ -19,9 +19,12 @@ import {UserService} from "../../services/user.service";
   templateUrl: './user-main.component.html',
   styleUrls: ['./user-main.component.less']
 })
-export class UserMainComponent implements OnInit{
+export class UserMainComponent implements OnInit, DoCheck{
 
-  constructor(private _route: Router, private _service: UserService) {}
+  constructor(private _route: Router,
+              private _service: UserService,
+              private _cd: ChangeDetectorRef,
+  ) {}
 
   thisUrl: string = this._route.url;
   @Input() title: string = '';
@@ -30,9 +33,13 @@ export class UserMainComponent implements OnInit{
   addBorrowBook: boolean;
 
   ngOnInit() {
-    this._service.debugHash(this.thisUrl);
+    this._service.debugHash(window.location.href);
   }
 
+  ngDoCheck() {
+    this._cd.detectChanges();
+
+  }
 
 
 
